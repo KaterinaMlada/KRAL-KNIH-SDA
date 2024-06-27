@@ -10,13 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-import os
+from pathlib import Path
 
 ### from django.contrib.messages import constants as messages 
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -39,10 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'core.apps.CoreConfig'
-    'cart.apps.CartConfig'
-    'search.apps.SearchConfig'
-    'order.apps.OrderConfig'
+    'core'
+    'cart'
+    'search'
+    'order'
     
 ]
 
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'KRALKNIH.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,9 +125,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_URL = '/media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'files/')
 
 
 # CART_SESSION_ID = 'cart'
@@ -136,13 +134,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'files/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-""" 
-MESSAGE_TAGS = {
-    messages.INFO: 'alert alert-info',
-    messages.SUCCESS: 'alert alert-success',
-    messages.WARNING: 'alert alert-warning',
-    messages.ERROR: 'alert alert-danger',
-    messages.DEBUG: 'alert alert-info',
-}
+"""
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 """
