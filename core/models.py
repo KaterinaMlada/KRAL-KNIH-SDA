@@ -91,8 +91,7 @@ class OrderLine(models.Model):
 class Order(models.Model):
     user_name = ForeignKey(UserProfile, on_delete=models.PROTECT)
     total_cost = DecimalField(max_digits=5, decimal_places=2) #FIXME aby pocitala soucet
-    delivery_address = ForeignKey(Address, on_delete=models.PROTECT)
-    user_address = ForeignKey(UserProfile.address, on_delete=models.PROTECT)
+    user_address = ForeignKey(Address, on_delete=models.PROTECT)
     date_created = DateTimeField(auto_now_add=True)
     order_lines = ForeignKey(OrderLine, on_delete=models.PROTECT)
 
