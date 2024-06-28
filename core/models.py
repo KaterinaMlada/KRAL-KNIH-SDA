@@ -41,10 +41,10 @@ class Role(models.Model):
 class UserProfile(models.Model):
     login = EmailField(unique=True)
     password = CharField(max_length=150)
-    address = ForeignKey(Address)
+    address = ForeignKey(Address, on_delete=models.CASCADE)
     avatar = ImageField(upload_to='avatar')
     #TODO tady si moc nejsem jist , k obrazkum jsem se zatim nedostal
-    role = ForeignKey(Role)
+    role = ForeignKey(Role, on_delete=models.CASCADE )
     COMM_CHOICES = [
         ('mail', 'Mail'),
         ('email', 'Email'),
@@ -65,7 +65,7 @@ class Book(models.Model):
     description = CharField(max_length=500)
     thumbnail = ImageField(upload_to='thumbnail')
     #TODO tady si nejsem jist proc v reamde je url
-    category = ForeignKey(Category)
+    category = ForeignKey(Category, on_delete=models.CASCADE)
     price = DecimalField(max_digits=5, decimal_places=2)
     product_type = CharField(max_length=50)
     #TODO tady asi v nasem pripade to bude typ vazby
