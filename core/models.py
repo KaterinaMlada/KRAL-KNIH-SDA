@@ -2,7 +2,7 @@ from django.contrib.auth.models import User, make_password
 
 from django.db import models
 from django.db.models import Model, CharField, IntegerField, EmailField, ForeignKey, ImageField, \
-    DecimalField, ManyToManyField  # doplnit postupne podle vsech modelu
+    DecimalField, ManyToManyField, DateTimeField  # doplnit postupne podle vsech modelu
 
 
 class Author(models.Model):
@@ -44,7 +44,7 @@ class UserProfile(models.Model):
     address = ForeignKey(Address, on_delete=models.CASCADE)
     avatar = ImageField(upload_to='avatar')
     #TODO tady si moc nejsem jist , k obrazkum jsem se zatim nedostal
-    role = ForeignKey(Role, on_delete=models.CASCADE )
+    role = ForeignKey(Role, on_delete=models.CASCADE)
     COMM_CHOICES = [
         ('mail', 'Mail'),
         ('email', 'Email'),
@@ -70,3 +70,31 @@ class Book(models.Model):
     product_type = CharField(max_length=50)
     #TODO tady asi v nasem pripade to bude typ vazby
     author = ManyToManyField(Author)
+
+    def __str__(self):
+        return f'{self.title} '
+
+
+class OrderLine(models.Model):
+    book = ForeignKey(Book, on_delete=models.CASCADE)
+    quantity = IntegerField()
+    price = DecimalField(max_digits=5, decimal_places=2, editable=False)
+
+    def save(self, *args, **kwargs):
+        self.price = self.book.price * self.quantity
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'{self.book} x {self.quantity} = {self.price}'
+
+
+class Order(models.Model):
+    user_name = ForeignKey(UserProfile, on_delete=models.PROTECT)
+    total_cost = DecimalField(max_digits=5, decimal_places=2) #FIXME aby pocitala soucet
+    delivery_address = ForeignKey(Address, on_delete=models.PROTECT)
+    user_address = ForeignKey(UserProfile.address, on_delete=models.PROTECT)
+    date_created = DateTimeField(auto_now_add=True)
+    order_lines = ForeignKey(OrderLine, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f'{self.user_name} {self.date_created}'
