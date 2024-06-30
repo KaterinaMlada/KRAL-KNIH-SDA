@@ -58,10 +58,10 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='UserProfile',
+            name='Customer',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('login', models.EmailField(max_length=254, unique=True)),
+                ('email', models.EmailField(max_length=254, unique=True)),
                 ('password', models.CharField(max_length=150)),
                 ('avatar', models.ImageField(upload_to='avatar')),
                 ('pref_comm', models.CharField(choices=[('mail', 'Mail'), ('email', 'Email')], max_length=150)),
