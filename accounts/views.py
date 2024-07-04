@@ -9,7 +9,7 @@ from accounts.models import Profile
 
 
 class SubmittableLoginView(LoginView):
-    template_name = 'registration/login.html'
+    template_name = 'login.html'
 
 
 class SignUpForm(UserCreationForm):
