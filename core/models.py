@@ -12,12 +12,14 @@ class Promotion(Model):
 
 
 class Author(models.Model):
-    id = IntegerField(primary_key=True)
     first_name = CharField(max_length=15)
     last_name = CharField(max_length=25)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
+
+    class Meta:
+        ordering = ['last_name', 'first_name']
 
 
 class Role(models.Model):
@@ -25,6 +27,9 @@ class Role(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
+    class Meta:
+        ordering = ['name']
 
 
 class Customer(models.Model):
@@ -65,13 +70,20 @@ class Customer(models.Model):
     def __str__(self):
         return f'{self.first_name} {self.last_name} {self.email}'
 
+    class Meta:
+        ordering = ['last_name', 'first_name']
+
 
 class Address(models.Model):
-    street = CharField(max_length=15)
-    city = CharField(max_length=15)
+    street = CharField(max_length=50)
+    city = CharField(max_length=20)
+    zip_code = CharField(max_length=10)
     country = CharField(max_length=15)
-    zip_code = CharField(max_length=15)
     customer = ForeignKey(Customer, on_delete=models.CASCADE, default=None)
+
+    class Meta:
+        verbose_name_plural = "addresses"
+        ordering = ['city', 'zip_code', 'country']
 
     def __str__(self):
         return f'{self.country} {self.city} {self.street} {self.zip_code}'
@@ -79,7 +91,12 @@ class Address(models.Model):
 
 class Category(models.Model):
     title = CharField(max_length=15)
-    featured_book = ForeignKey('Book', on_delete=models.SET_NULL, null=True, related_name='+')
+    #featured_book = ForeignKey('Book', on_delete=models.SET_NULL, null=True, related_name='+')
+    #Už nevim co to bylo a proč to tady je a dělá mi to bordel, třeba si vzpomenu :D
+
+    class Meta:
+        verbose_name_plural = "categories"
+        ordering = ['title']
 
     def __str__(self):
         return f'{self.title}'
@@ -92,12 +109,12 @@ class Book(models.Model):
     unit_price = DecimalField(max_digits=6, decimal_places=2)
     inventory = IntegerField(default=0)
     category = ForeignKey(Category, on_delete=models.PROTECT)
-    promotions = ManyToManyField(Promotion)
+    promotions = ManyToManyField(Promotion, null=True, blank=True)
     authors = ManyToManyField(Author)
     """
     thumbnail = ImageField(upload_to='thumbnail')
     #TODO tady si nejsem jist proc v readme je url
-    product_type = CharField(max_length=50)
+    product_type = Charfield(max_length=50)
     #TODO tady asi v nasem pripade to bude typ vazby
     
     """
@@ -106,7 +123,12 @@ class Book(models.Model):
     def __str__(self):
         return f'{self.title} '
 
+    class Meta:
+        ordering = ['title']
+
+
 #Tady dole pokus o model OrderLine, ale jelikož si zatím nejsem jist co to je tak je schovaný :)
+
 """
 class OrderLine(models.Model):
     book = ForeignKey(Book, on_delete=models.CASCADE)
@@ -144,6 +166,9 @@ class Order(models.Model):
 
     def __str__(self):
         return f'Objednavka uzivatele {self.customer} z {self.placed_at}, {self.payment_status}'
+
+    class Meta:
+        ordering = ['placed_at']
 
 
 class OrderItem(models.Model):
