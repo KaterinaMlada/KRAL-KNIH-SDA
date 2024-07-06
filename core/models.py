@@ -68,7 +68,7 @@ class Customer(models.Model):
         """
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name} {self.email}'
+        return f'{self.first_name} {self.last_name}'
 
     class Meta:
         ordering = ['last_name', 'first_name']
@@ -86,7 +86,7 @@ class Address(models.Model):
         ordering = ['city', 'zip_code', 'country']
 
     def __str__(self):
-        return f'{self.country} {self.city} {self.street} {self.zip_code}'
+        return f'{self.city} , {self.street}'
 
 
 class Category(models.Model):
@@ -165,7 +165,7 @@ class Order(models.Model):
     """
 
     def __str__(self):
-        return f'Objednavka uzivatele {self.customer} z {self.placed_at}, {self.payment_status}'
+        return f'Objednavka {self.placed_at}, {self.payment_status}'
 
     class Meta:
         ordering = ['placed_at']
