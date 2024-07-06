@@ -51,7 +51,7 @@ class Customer(models.Model):
     membership = CharField(max_length=15,choices=MEMBERSHIP_CHOICES, default=MEMBERSHIP_BRONZE)
     """
     password = CharField(max_length=150)
-    address = ForeignKey(Address, on_delete=models.CASCADE)
+    
     avatar = ImageField(upload_to='avatar')
     #TODO tady si moc nejsem jist , k obrazkum jsem se zatim nedostal
     role = ForeignKey(Role, on_delete=models.CASCADE)
