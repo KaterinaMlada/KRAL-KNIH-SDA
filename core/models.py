@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User, make_password
+from django.core.validators import MinValueValidator
 
 from django.db import models
 from django.db.models import Model, CharField, IntegerField, EmailField, ForeignKey, ImageField, \
@@ -105,9 +106,14 @@ class Category(models.Model):
 class Book(models.Model):
     title = CharField(max_length=50)
     slug = models.SlugField()
-    description = TextField(max_length=500)
-    unit_price = DecimalField(max_digits=6, decimal_places=2)
-    inventory = IntegerField(default=0)
+    description = TextField(max_length=500, null=True, blank=True)
+    unit_price = DecimalField(
+        max_digits=6,
+        decimal_places=2,
+        validators=[MinValueValidator(1)])
+    inventory = IntegerField(
+        default=0,
+        validators=[MinValueValidator(1)])
     category = ForeignKey(Category, on_delete=models.PROTECT)
     promotions = ManyToManyField(Promotion, null=True, blank=True)
     authors = ManyToManyField(Author)

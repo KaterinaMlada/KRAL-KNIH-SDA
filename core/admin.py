@@ -4,6 +4,12 @@ from django.db.models import Count
 from core.models import *
 
 
+@admin.register(Author)
+class AuthorAdmin(ModelAdmin):
+    search_fields = ['first_name', 'last_name']
+    list_display = ['last_name', 'first_name']
+
+
 @admin.register(Category)
 class CategoryAdmin(ModelAdmin):
     list_display = ['title', 'books_count']
@@ -18,6 +24,7 @@ class CategoryAdmin(ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(ModelAdmin):
+    autocomplete_fields = ['authors']
     prepopulated_fields = {
         'slug': ['title']
     }
@@ -43,9 +50,17 @@ class CustomerAdmin(ModelAdmin):
     search_fields = ['last_name', 'first_name']
 
 
+class OrderItemInline(admin.TabularInline):
+    autocomplete_fields = ['book']
+    extra = 0
+    min_num = 1
+    model = OrderItem
+
+
 @admin.register(Order)
 class OrderAdmin(ModelAdmin):
     autocomplete_fields = ['customer']
+    inlines = [OrderItemInline]
     list_display = ['id', 'customer', 'placed_at', 'payment_status',]
     list_editable = ['payment_status']
     list_filter = ['payment_status']
