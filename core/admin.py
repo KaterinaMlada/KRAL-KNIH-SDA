@@ -1,7 +1,9 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
+from django.contrib.contenttypes.admin import GenericTabularInline
 from django.db.models import Count
 from core.models import *
+from tags.models import *
 
 
 @admin.register(Author)
@@ -22,12 +24,20 @@ class CategoryAdmin(ModelAdmin):
         return super().get_queryset(request).annotate(books_count=Count('book'))
 
 
+class TagInline(GenericTabularInline):
+    autocomplete_fields = ['tag']
+    extra = 0
+    min_num = 0
+    model = TaggedItem
+
+
 @admin.register(Book)
 class BookAdmin(ModelAdmin):
     autocomplete_fields = ['authors']
     prepopulated_fields = {
         'slug': ['title']
     }
+    inlines = [TagInline]
     list_display = ['title', 'unit_price', 'category']
     list_editable = ['unit_price']
     list_filter = ['category']
