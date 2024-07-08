@@ -104,7 +104,7 @@ class Category(models.Model):
 
 class Book(models.Model):
     title = CharField(max_length=50)
-    slug = models.SlugField(default='-')
+    slug = models.SlugField()
     description = TextField(max_length=500)
     unit_price = DecimalField(max_digits=6, decimal_places=2)
     inventory = IntegerField(default=0)

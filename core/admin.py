@@ -18,12 +18,14 @@ class CategoryAdmin(ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(ModelAdmin):
+    prepopulated_fields = {
+        'slug': ['title']
+    }
     list_display = ['title', 'unit_price', 'category']
     list_editable = ['unit_price']
     list_filter = ['category']
     list_per_page = 15
     search_fields = ['title']
-
 
     @admin.display(ordering='inventory')
     def inventory_status(self, book):
@@ -43,6 +45,7 @@ class CustomerAdmin(ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(ModelAdmin):
+    autocomplete_fields = ['customer']
     list_display = ['id', 'customer', 'placed_at', 'payment_status',]
     list_editable = ['payment_status']
     list_filter = ['payment_status']
