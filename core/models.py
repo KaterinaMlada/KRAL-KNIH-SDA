@@ -115,7 +115,7 @@ class Book(models.Model):
         default=0,
         validators=[MinValueValidator(1)])
     category = ForeignKey(Category, on_delete=models.PROTECT)
-    promotions = ManyToManyField(Promotion, null=True, blank=True)
+    promotions = ManyToManyField(Promotion, blank=True)
     authors = ManyToManyField(Author)
     """
     thumbnail = ImageField(upload_to='thumbnail')

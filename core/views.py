@@ -7,7 +7,6 @@ from .models import Book
 from .serializers import BookSerializer
 
 
-
 def home(request):
     return render(request,'home.html')
 
@@ -17,11 +16,17 @@ def show_about(request):
                                                    'name2': "Katerina Mlada"})
 
 
-@api_view()
+@api_view(['GET', 'POST'])
 def book_list(request):
-    queryset = Book.objects.all()
-    serializer = BookSerializer(queryset, many=True)
-    return Response(serializer.data)
+    if request.method == 'GET':
+        queryset = Book.objects.select_related('category').all()
+        serializer = BookSerializer(queryset, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = BookSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.validated_data
+        return Response('ok')
 
 
 @api_view()
