@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import Category, Book
+from core.models import Book
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -7,3 +7,4 @@ class BookSerializer(serializers.ModelSerializer):
         model = Book
         fields = ['id', 'title', 'unit_price', 'category']
     category = serializers.StringRelatedField()
+

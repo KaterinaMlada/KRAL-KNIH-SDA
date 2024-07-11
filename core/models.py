@@ -1,10 +1,10 @@
-from django.contrib.auth.models import User, make_password
+from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
-
+from uuid import uuid4
 from django.db import models
-from django.db.models import Model, CharField, IntegerField, EmailField, ForeignKey, ImageField, \
+from django.db.models import Model, CharField, IntegerField, EmailField, ForeignKey, \
     DecimalField, ManyToManyField, DateTimeField, TextField, DateField, \
-    OneToOneField, PositiveSmallIntegerField  # doplnit postupne podle vsech modelu
+    PositiveSmallIntegerField  # doplnit postupne podle vsech modelu
 
 
 class Promotion(Model):
@@ -127,7 +127,7 @@ class Book(models.Model):
     last_updated = DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.title} '
+        return f'{self.title}'
 
     class Meta:
         ordering = ['title']
@@ -185,10 +185,14 @@ class OrderItem(models.Model):
 
 
 class Cart(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4)
     created_at = DateTimeField(auto_now_add=True)
 
 
 class CartItem(models.Model):
-    cart = ForeignKey(Cart, on_delete=models.CASCADE)
+    cart = ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
     book = ForeignKey(Book, on_delete=models.CASCADE)
     quantity = PositiveSmallIntegerField()
+
+    class Meta:
+        unique_together = [['cart', 'book']]

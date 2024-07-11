@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>-- O Králi Knih --</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
 <h1>O Králi Knih</h1>
 <p>Toto je finální projekt kurzu SDA od týmu introvert.</p>
 <ul>Členové týmu jsou
-    <li>{{ name1 }}</li>
-    <li>{{ name2 }}</li>
+    {% for name in names %}
+    <li>{{ name }}</li>
+    {% endfor %}
 </ul>
-</body>
-</html>
+{% endblock %}
