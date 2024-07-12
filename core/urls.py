@@ -1,0 +1,13 @@
+from django.urls import path
+from . import views
+
+app_name = 'core'
+
+urlpatterns = [
+
+    path('', views.books, name="books"),
+    path('cart/', views.cart, name="cart"),
+    path('checkout/', views.checkout, name="checkout"),
+    path('about/', views.show_about, name='about'),
+
+]
