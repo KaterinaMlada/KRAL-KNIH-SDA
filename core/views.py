@@ -1,8 +1,7 @@
 from django.shortcuts import render
+from django.views import View
 
-def books(request):
-    context = {}
-    return render(request,'books.html', context)
+from core.models import Book
 
 
 def cart(request):
@@ -23,12 +22,7 @@ def show_about(request):
     )
 
 
-
-
-
-
-
-""" class BooksView(View):
+class BooksView(View):
     def get(self, request):
         return render(
             request,
@@ -36,7 +30,7 @@ def show_about(request):
             context={'books': Book.objects.all()}
         )
 
-"""
+
 
 
 

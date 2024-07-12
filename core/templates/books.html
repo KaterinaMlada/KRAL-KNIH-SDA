@@ -2,7 +2,14 @@
 {% load static %}
 {% block content %}
 
-    <h1>Naše nabídka</h1>
+<h1>Naše nabídka</h1>
+<ul>
+    {% for book in books %}
+    <li>
+        {{ book }}
+    </li>
+    {% endfor %}
+</ul>
 
 {% endblock content %}
 

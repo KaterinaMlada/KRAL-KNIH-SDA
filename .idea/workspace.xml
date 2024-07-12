@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cec27482-2a52-441d-995d-b57f10763331" name="Changes" comment="Stepan 1107 - base template a odmazani API" />
+    <list default="true" id="cec27482-2a52-441d-995d-b57f10763331" name="Changes" comment="Stepan 1107 - base template a odmazani API">
+      <change beforePath="$PROJECT_DIR$/.idea/templateLanguages.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/templates/books.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/templates/books.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -207,6 +213,7 @@
       <workItem from="1720712724506" duration="3386000" />
       <workItem from="1720717039256" duration="5832000" />
       <workItem from="1720723880404" duration="269000" />
+      <workItem from="1720794671938" duration="1730000" />
     </task>
     <task id="LOCAL-00001" summary="Stepan 2706 - modely cast 1">
       <option name="closed" value="true" />
@@ -377,7 +384,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="admin" />
+                        <option value="development" />
                       </list>
                     </value>
                   </entry>
