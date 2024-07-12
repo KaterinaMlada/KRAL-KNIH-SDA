@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cec27482-2a52-441d-995d-b57f10763331" name="Changes" comment="Stepan 1107 - base template a odmazani API">
+      <change beforePath="$PROJECT_DIR$/.idea/templateLanguages.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/templates/books.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/templates/books.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/views.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="admin" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2iTK3s7B74LFTrL5A6OMa2wHR28" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Django Server.KRAL-KNIH.executor&quot;: &quot;Run&quot;,
+    &quot;Python.views.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
+    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR_AND_PREVIEW&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/kupsi/Downloads/MOCK_DATA (5).csv&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
+    ]
+  }
+}</component>
+  <component name="RunManager" selected="Django Server.KRAL-KNIH">
+    <configuration default="true" type="DjangoTestsConfigurationType">
+      <module name="KRAL-KNIH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/../../Python/KRAL-KNIH/.venv/Scripts/python.exe" />
+      <option name="SDK_NAME" value="Python 3.12 (KRAL-KNIH)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="views" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="KRAL-KNIH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/core" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/core/views.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="KRAL-KNIH" type="Python.DjangoServer" factoryName="Django server">
+      <module name="KRAL-KNIH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="KRALKNIH.settings" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 (KRAL-KNIH)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="localhost" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
+      <module name="KRAL-KNIH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 (KRAL-KNIH)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="localhost" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Django Server.KRAL-KNIH" />
+      <item itemvalue="Python.views" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.views" />
+        <item itemvalue="Python.views" />
+        <item itemvalue="Python.views" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cec27482-2a52-441d-995d-b57f10763331" name="Changes" comment="" />
+      <created>1719508930471</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1719508930471</updated>
+      <workItem from="1719508931661" duration="2420000" />
+      <workItem from="1719590202851" duration="21000" />
+      <workItem from="1719590270118" duration="5533000" />
+      <workItem from="1719641498273" duration="3829000" />
+      <workItem from="1719729789498" duration="10682000" />
+      <workItem from="1719744529337" duration="51000" />
+      <workItem from="1719941278594" duration="45000" />
+      <workItem from="1719941386394" duration="872000" />
+      <workItem from="1720163493900" duration="974000" />
+      <workItem from="1720164498689" duration="2610000" />
+      <workItem from="1720167648177" duration="2125000" />
+      <workItem from="1720170039411" duration="844000" />
+      <workItem from="1720174351281" duration="183000" />
+      <workItem from="1720248477203" duration="402000" />
+      <workItem from="1720248947880" duration="604000" />
+      <workItem from="1720249916898" duration="7837000" />
+      <workItem from="1720338968528" duration="3786000" />
+      <workItem from="1720452858106" duration="635000" />
+      <workItem from="1720453731884" duration="7419000" />
+      <workItem from="1720539504100" duration="7433000" />
+      <workItem from="1720626288368" duration="5383000" />
+      <workItem from="1720712724506" duration="3386000" />
+      <workItem from="1720717039256" duration="5832000" />
+      <workItem from="1720723880404" duration="269000" />
+      <workItem from="1720794671938" duration="1730000" />
+    </task>
+    <task id="LOCAL-00001" summary="Stepan 2706 - modely cast 1">
+      <option name="closed" value="true" />
+      <created>1719511366575</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1719511366575</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Stepan 2806 - modely cast 2">
+      <option name="closed" value="true" />
+      <created>1719594315064</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1719594315064</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Stepan 2806 - modely cast 2fix">
+      <option name="closed" value="true" />
+      <created>1719597664472</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1719597664472</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Stepan 2906 - stranka about">
+      <option name="closed" value="true" />
+      <created>1719644673024</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1719644673024</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Stepan 3006 - Uprava a zjednodusseni modelu">
+      <option name="closed" value="true" />
+      <created>1719735426917</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1719735426917</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Stepan 3006 - Rozsireni modelu + migrace">
+      <option name="closed" value="true" />
+      <created>1719741849975</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1719741849975</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Stepan 0607 - opravy a custom admin panel">
+      <option name="closed" value="true" />
+      <created>1720252517578</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1720252517578</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Stepan 0607-2 - admin-customer-list">
+      <option name="closed" value="true" />
+      <created>1720253804370</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1720253804370</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Stepan 0607-3 - modely __str__ upravy">
+      <option name="closed" value="true" />
+      <created>1720254025492</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1720254025492</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Stepan 0607-4 - admin listy upravy">
+      <option name="closed" value="true" />
+      <created>1720257410682</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1720257410682</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Stepan 0707-4 - admin search/filter">
+      <option name="closed" value="true" />
+      <created>1720343422872</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1720343422872</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Stepan 0807 - slug,order admin update">
+      <option name="closed" value="true" />
+      <created>1720455661100</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1720455661100</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Stepan 0807/2 - upravy admin + OrderItem">
+      <option name="closed" value="true" />
+      <created>1720459528350</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1720459528350</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Stepan 0807/3 - migrace modelu - validace">
+      <option name="closed" value="true" />
+      <created>1720459692653</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1720459692653</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Stepan 0807/4 - admin finish / tags">
+      <option name="closed" value="true" />
+      <created>1720462247017</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1720462247017</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Stepan 0907 - zacatek API">
+      <option name="closed" value="true" />
+      <created>1720549956787</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1720549956787</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Stepan 1007 - maly fix">
+      <option name="closed" value="true" />
+      <created>1720633449756</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1720633449757</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Stepan 1107 - base template a odmazani API">
+      <option name="closed" value="true" />
+      <created>1720724120070</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1720724120070</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Stepan 1107 - base template a odmazani API">
+      <option name="closed" value="true" />
+      <created>1720724133255</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1720724133255</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="development" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Stepan 2706 - modely cast 1" />
+    <MESSAGE value="Stepan 2806 - modely cast 2" />
+    <MESSAGE value="Stepan 2806 - modely cast 2fix" />
+    <MESSAGE value="Stepan 2906 - stranka about" />
+    <MESSAGE value="Stepan 3006 - Uprava a zjednodusseni modelu" />
+    <MESSAGE value="Stepan 3006 - Rozsireni modelu + migrace" />
+    <MESSAGE value="Stepan 0607 - opravy a custom admin panel" />
+    <MESSAGE value="Stepan 0607-2 - admin-customer-list" />
+    <MESSAGE value="Stepan 0607-3 - modely __str__ upravy" />
+    <MESSAGE value="Stepan 0607-4 - admin listy upravy" />
+    <MESSAGE value="Stepan 0707-4 - admin search/filter" />
+    <MESSAGE value="Stepan 0807 - slug,order admin update" />
+    <MESSAGE value="Stepan 0807/2 - upravy admin + OrderItem" />
+    <MESSAGE value="Stepan 0807/3 - migrace modelu - validace" />
+    <MESSAGE value="Stepan 0807/4 - admin finish / tags" />
+    <MESSAGE value="Stepan 0907 - zacatek API" />
+    <MESSAGE value="Stepan 1007 - maly fix" />
+    <MESSAGE value="Stepan 1107 - base template a odmazani API" />
+    <option name="LAST_COMMIT_MESSAGE" value="Stepan 1107 - base template a odmazani API" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/KRAL_KNIH$views.coverage" NAME="views Coverage Results" MODIFIED="1719645221776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
+  </component>
+</project>

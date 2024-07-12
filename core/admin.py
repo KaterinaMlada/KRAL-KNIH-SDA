@@ -3,7 +3,7 @@ from django.contrib.admin import ModelAdmin
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.db.models import Count
 from core.models import *
-# from tags.models import *
+from tags.models import *
 
 
 """ @admin.register(Author)
