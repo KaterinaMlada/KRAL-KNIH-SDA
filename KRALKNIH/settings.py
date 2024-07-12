@@ -129,9 +129,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, '')
-
-MEDIA_URL = 'files/'
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 
 
 # Default primary key field type
@@ -142,6 +140,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'COERCE_DECIMAL_TO_STRING': False
 }
-
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'

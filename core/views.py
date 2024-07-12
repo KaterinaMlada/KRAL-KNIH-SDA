@@ -1,28 +1,55 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-from django.views import View
+from django.shortcuts import render
 
-from .models import Book
+def books(request):
+    context = {}
+    return render(request,'books.html', context)
 
-def home(request):
-    return render(request,'home.html')
+
+def cart(request):
+    context = {}
+    return render(request,'cart.html', context)
+
+
+def checkout(request):
+    context = {}
+    return render(request,'checkout.html', context)
 
 
 def show_about(request):
     return render(
         request,
-        template_name='stepi_template.html',
+        template_name='show_about.html',
         context={'names': ['Stepan Kubicek', 'Katerina Mlada']}
     )
 
 
-class BooksView(View):
+
+
+
+
+
+""" class BooksView(View):
     def get(self, request):
         return render(
             request,
             template_name='books.html',
             context={'books': Book.objects.all()}
         )
+
+"""
+
+
+
+
+
+
+
+
+
+
+
+
+
 #dole pokus o API, asi necháme pro Krále Knih 2.0 :D
 """
 @api_view(['GET', 'POST'])

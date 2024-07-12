@@ -3,9 +3,13 @@
 <html {% if LANGUAGE_CODE %}lang="{{ LANGUAGE_CODE }}" {% endif %}>
 
 <head>
+    
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+
+
     <title>Král Knih</title>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -19,29 +23,43 @@
             crossorigin="anonymous"></script>
 </head>
 
+
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container fixed">
-        <a class="navbar-brand" href="/">Král Knih</a>
-        <button
-                class="navbar-toggler" type="button"
-                data-toggle="collapse" data-target="#navbarNavAltMarkup"
-        >
-            <span class="navbar-toggler-icon"></span>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'core:books' %}">BOOK KING</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="/">
-                    Home
-                </a>
-            </div>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'core:about' %}">About<span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+
+        <div class="form-inline my-2 my-lg-0">
+            <a href="#"class="btn btn-light">Login</a>
+                    
+            <a href="{% url 'core:cart' %}">
+                <img  id="cart-icon" src="{% static 'images/cart.png' %}">
+              </a>
+           <p id="cart-total">0</p>
+           
+        
         </div>
-    </div>
-</nav>
-<div class="container">
-    <div class="jumbotron">
-        {% block content %}{% endblock %}
-    </div>
+        </div>
+      </nav>
+
+<div class="container fixed">
+
+    {% block content %}
+   
+    {% endblock content %}
+
 </div>
 </body>
 
