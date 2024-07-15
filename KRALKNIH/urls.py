@@ -18,7 +18,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
-from accounts.views import SubmittableLoginView, SignUpView, SubmittablePasswordChangeView
 from core.views import *
 from KRALKNIH import settings 
 
@@ -29,16 +28,9 @@ urlpatterns = [
     path('', include('core.urls')),
     path('tags/', include('tags.urls')),
     path('likes/', include('likes.urls')),
-
-   
-   
-   
-   
  
-    path('accounts/login/', SubmittableLoginView.as_view(), name='login'), 
-    path('accounts/signup/', SignUpView.as_view(), name='signup'),         
-    path('accounts/password_change/', SubmittablePasswordChangeView.as_view(), name='password_change'),
-    path('accounts/', include('django.contrib.auth.urls')),
-
-
  ]
+
+
+
+

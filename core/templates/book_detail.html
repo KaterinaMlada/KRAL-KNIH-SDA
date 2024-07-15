@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="main-img">
+                <img class="img-fluid" src="../../{{ object.thumbnail }}" alt="{{ object.slug }}">
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="main-description px-2">
+                <h1>{{ object.title }}</h1>
+                <div class="authors">
+                    {% for author in object.authors.all %}
+                        <h4>{{ author }}</h4>
+                    {% endfor %}
+                </div>
+                <div class="category text-bold">
+                    Kategorie: {{ object.category }}
+                </div>
+                <div class="price-area my-4">
+                    <p>Cena: {{ object.unit_price }} CZK</p>
+                </div>
+                <div class="buttons d-flex my-5">
+                    <div class="block">
+                        <button class="shadow btn custom-btn">Přidat do košíku</button>
+                    </div>
+                </div>
+                <div class="product-details my-4">
+                    <h3 class="details-title text-color mb-3">Popis knihy</h3>
+                    <p class="description">{{ object.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

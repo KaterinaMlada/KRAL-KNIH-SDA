@@ -1,36 +1,36 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block content %}
+    <div class="page-title">
+        <h1>Naše nabídka</h1>
+    </div>
 
-
-
-<div class="row">
-	<div class="col-lg-4">
-        <img class="thumbnail" src="{% static 'images/x.png' %}">
-		<div class="box-element product">
-            <h6><strong>Product</strong></h6>
-            <hr>
-		</div>
-	</div>
-   
-        <div class="col-lg-4">
-            <img class="thumbnail" src="{% static 'images/x.png' %}">
-            <div class="box-element product">
-                <h6><strong>Product</strong></h6>
-                <hr>
-            </div>
-        </div>
-      
-     
+    <div class="row">
+        {% for book in object_list %}
             <div class="col-lg-4">
-                <img class="thumbnail" src="{% static 'images/x.png' %}">
-                <div class="box-element product">
-                    <h6><strong>Product</strong></h6>
-                    <hr>
+                <div class="product">
+                    <a href="{% url 'core:book_detail' pk=book.pk %}">
+                        <img class="thumbnail" src="{{ book.thumbnail }}">
+                        <h6>Autor:
+                            {% for author in book.authors.all %}
+                                {{ author }},
+                            {% endfor %}
+                        </h6>
+                        <h5>Název: <strong>{{ book }}</strong></h5>
+                        <hr>
+                        <div class="button-group">
+                            <a href="{% url 'core:add_to_cart' book_id=book.pk %}" class="btn add-to-cart-btn">Do košíku</a>
+                            <a href="{% url 'core:book_detail' pk=book.pk %}" class="btn detail-btn">Detail knihy</a>
+                        </div>
+                    </a>
                 </div>
             </div>
-</div>
 
-{% endblock content %}
+            {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                </div><div class="row">
+            {% endif %}
 
-
+        {% endfor %}
+    </div>
+{% endblock %}
