@@ -30,7 +30,7 @@
             <div class="col-lg-4">
                 <div class="product">
                     <a href="{% url 'core:book_detail' pk=book.pk %}">
-                        <img class="thumbnail" src="{{ book.thumbnail }}">
+                        <img class="thumbnail" src="../../{{ book.thumbnail }}">
                         <h6>Autor:
                             {% for author in book.authors.all %}
                                 {{ author }},
