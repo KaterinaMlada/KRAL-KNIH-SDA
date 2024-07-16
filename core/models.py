@@ -126,10 +126,14 @@ class Cart(models.Model):
         item.save()
 
 
-class CartItem(models.Model):
+class CartItem(models.Model): 
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return f"{self.quantity} of {self.book.title}"
+    
+    @property  #Zajišťuje aby cena celkem vypisovala společnou částku pro více kusů stejné knihy. 
+    def total_cost(self):
+        return self.book.unit_price * self.quantity
