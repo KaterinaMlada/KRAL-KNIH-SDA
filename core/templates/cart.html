@@ -41,11 +41,11 @@
                         <div class="item-info">
                             <div class="quantity">
                                 <a href="{% url 'core:update_cart_item' book_id=item.book.id action='increase' %}">
-                                    <img class="chg-quantity" src="{% static 'images/arrow_up.png' %}" alt="Increase">
+                                    <img class="chg-quantity" src="{% static 'images/arrow_up.png' %}" alt="Increase" style="margin-left: 6px;">
                                 </a>
                                 <p class="quantity ml-2">{{ item.quantity }}</p>
                                 <a href="{% url 'core:update_cart_item' book_id=item.book.id action='decrease' %}">
-                                    <img class="chg-quantity" src="{% static 'images/arrow_down.png' %}" alt="Decrease">
+                                    <img class="chg-quantity" src="{% static 'images/arrow_down.png' %}" alt="Decrease" style="margin-left: 6px;">
                                 </a>
                             </div>
                         </div>

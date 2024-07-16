@@ -6,6 +6,25 @@
         <h1>Naše nabídka</h1>
     </div>
 
+    
+
+    <div class="category-bar">
+
+        <h2>Kategorie:</h2>
+        
+        <ul class="list-inline">
+            <li class="list-inline-item {% if not selected_category %}active{% endif %}">
+                <a href="{% url 'core:books' %}" >Všechny</a>
+            </li>
+            {% for category in categories %}
+            <li class="list-inline-item {% if selected_category and selected_category.id == category.id %}active{% endif %}">
+                <a href="{% url 'core:books_by_category' category.id %}" >{{ category.title }}</a>
+                
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
     <div class="row">
         {% for book in object_list %}
             <div class="col-lg-4">

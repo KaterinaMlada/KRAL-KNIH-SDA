@@ -2,21 +2,39 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from core.models import Book, Cart, CartItem
+from core.models import Book, Cart, CartItem, Category
 
 class BooksView(ListView):
     template_name = 'books.html'
     model = Book
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
+
 class BookDetailView(DetailView):
     template_name = 'book_detail.html'
     model = Book
+
+class BooksByCategoryView(ListView):
+    template_name = 'books.html'
+    model = Book
+
+    def get_queryset(self):
+        return Book.objects.filter(category_id=self.kwargs['category_id'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        context['selected_category'] = Category.objects.get(id=self.kwargs['category_id'])
+        return context
 
 def show_about(request):
     return render(
         request,
         template_name='show_about.html',
-        context={'names': ['Stepan Kubicek', 'Katerina Mlada']}
+        context={'names': ['Štěpán Kubíček','Kateřina Mladá']}
  )
 
 
