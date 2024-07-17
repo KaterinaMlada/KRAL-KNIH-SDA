@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from core.models import Book, Cart, CartItem, Category
+
+from core.forms import CheckoutForm
+from core.models import Book, Cart, CartItem, Category, Address, Order, OrderItem, Customer
 from django.http import JsonResponse
 from random import shuffle
 from django.utils import timezone
@@ -53,8 +55,72 @@ def show_about(request):
 
 
 def checkout(request):
-    context = {}
-    return render(request,'checkout.html', context)
+    cart_id = request.session.get('cart_id')
+    if not cart_id:
+        return redirect('core:cart')
+
+    cart = get_object_or_404(Cart, id=cart_id)
+    items = cart.cartitem_set.all()
+
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            # Create or retrieve the customer
+            customer, created = Customer.objects.get_or_create(
+                email=form.cleaned_data['email'],
+                defaults={
+                    'first_name': form.cleaned_data['first_name'],
+                    'last_name': form.cleaned_data['last_name'],
+                    'phone': form.cleaned_data['phone'],
+                    'membership': Customer.MEMBERSHIP_BRONZE  # Default membership
+                }
+            )
+
+            # Create the address
+            address = Address.objects.create(
+                street=form.cleaned_data['street'],
+                city=form.cleaned_data['city'],
+                zip_code=form.cleaned_data['zip_code'],
+                country=form.cleaned_data['country'],
+                customer=customer
+            )
+
+            # Create the order
+            order = Order.objects.create(
+                customer=customer,
+                payment_status=Order.PAYMENT_STATUS_PENDING,
+                total_cost=sum(item.quantity * item.book.unit_price for item in items)
+            )
+
+            # Create order items
+            for item in items:
+                OrderItem.objects.create(
+                    order=order,
+                    book=item.book,
+                    quantity=item.quantity,
+                    unit_price=item.book.unit_price
+                )
+
+            # Clear the cart
+            cart.cartitem_set.all().delete()
+            del request.session['cart_id']
+            return redirect('core:order_success')
+
+    else:
+        form = CheckoutForm()
+
+    total_price = sum(item.quantity * item.book.unit_price for item in items)
+
+    context = {
+        'cart': cart,
+        'items': items,
+        'total_price': total_price,
+        'form': form
+    }
+    return render(request, 'checkout.html', context)
+
+def order_success(request):
+    return render(request, 'order_success.html')
 
 #CART
 

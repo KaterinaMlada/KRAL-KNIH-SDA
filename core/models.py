@@ -115,6 +115,7 @@ class OrderItem(models.Model):
 class Cart(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4)
     created_at = DateTimeField(auto_now_add=True)
+    customer = ForeignKey(Customer, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return str(self.id)
