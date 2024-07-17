@@ -119,6 +119,7 @@ def checkout(request):
     }
     return render(request, 'checkout.html', context)
 
+
 def order_success(request):
     return render(request, 'order_success.html')
 
