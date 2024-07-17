@@ -6,20 +6,15 @@
         <h1>Naše nabídka</h1>
     </div>
 
-    
-
     <div class="category-bar">
-
         <h2>Kategorie:</h2>
-        
         <ul class="list-inline">
             <li class="list-inline-item {% if not selected_category %}active{% endif %}">
-                <a href="{% url 'core:books' %}" >Všechny</a>
+                <a href="{% url 'core:books' %}">Všechny</a>
             </li>
             {% for category in categories %}
             <li class="list-inline-item {% if selected_category and selected_category.id == category.id %}active{% endif %}">
-                <a href="{% url 'core:books_by_category' category.id %}" >{{ category.title }}</a>
-                
+                <a href="{% url 'core:books_by_category' category.id %}">{{ category.title }}</a>
             </li>
             {% endfor %}
         </ul>
@@ -31,25 +26,25 @@
                 <div class="product">
                     <a href="{% url 'core:book_detail' pk=book.pk %}">
                         <img class="thumbnail" src="../../{{ book.thumbnail }}">
-                        <h6>Autor:
+                        <h6>
                             {% for author in book.authors.all %}
                                 {{ author }},
                             {% endfor %}
                         </h6>
-                        <h5>Název: <strong>{{ book }}</strong></h5>
-                        <hr>
-                        <div class="button-group">
-                            <a href="{% url 'core:add_to_cart' book_id=book.pk %}" class="btn add-to-cart-btn">Do košíku</a>
-                            <a href="{% url 'core:book_detail' pk=book.pk %}" class="btn detail-btn">Detail knihy</a>
-                        </div>
+                        <h5><strong>{{ book }}</strong></h5>
                     </a>
+                    <hr>
+                    <span class="price">{{ book.unit_price }} Kč</span>
+                    <div class="button-group">
+                        <a href="{% url 'core:add_to_cart' book_id=book.pk %}" class="btn add-to-cart-btn">Do košíku</a>
+                        <a href="{% url 'core:book_detail' pk=book.pk %}" class="btn detail-btn">Detail knihy</a>
+                    </div>
                 </div>
             </div>
 
             {% if forloop.counter|divisibleby:3 and not forloop.last %}
                 </div><div class="row">
             {% endif %}
-
         {% endfor %}
     </div>
 {% endblock %}
