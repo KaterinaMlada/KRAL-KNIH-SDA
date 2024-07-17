@@ -4,8 +4,8 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from core.models import Book, Cart, CartItem, Category
 from django.http import JsonResponse
-
-
+from random import shuffle
+from django.utils import timezone
 
 class BooksView(ListView):
     template_name = 'books.html'
@@ -23,7 +23,12 @@ class BookDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         current_book = self.get_object()
-        context['related_books'] = Book.objects.filter(category=current_book.category).exclude(pk=current_book.pk)[:3]
+        
+        # Get related books and shuffle them
+        related_books = list(Book.objects.filter(category=current_book.category).exclude(pk=current_book.pk)[:5])
+        shuffle(related_books)
+        
+        context['related_books'] = related_books
         return context
 
 class BooksByCategoryView(ListView):

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load custom_filters %}  
 
 {% block content %}
 <div class="container my-5">
@@ -45,7 +46,7 @@
     </div>
 
     <div class="row">
-        {% for book in related_books %}
+        {% for book in related_books|slice:"0:4"|shuffle_list %}
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                 <div class="card border border-dark h-100">
                     <a href="{% url 'core:book_detail' pk=book.pk %}">
