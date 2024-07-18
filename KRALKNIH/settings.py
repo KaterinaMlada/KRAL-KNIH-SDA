@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'tags.apps.TagsConfig',
     'likes.apps.LikesConfig',
     'accounts.apps.AccountsConfig',
+ 
     
 ]
 
@@ -137,6 +138,6 @@ STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-REST_FRAMEWORK = {
-    'COERCE_DECIMAL_TO_STRING': False
-}
+MEDIA_ROOT = BASE_DIR/'static/images'
+MEDIA_URL = '/media/'
+

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}  
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="main-img">
+                <img class="img-fluid" src="../../{{ object.thumbnail }}" alt="{{ object.slug }}">
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="main-description px-2">
+                <h1>{{ object.title }}</h1>
+                <div class="authors">
+                    {% for author in object.authors.all %}
+                        <h4>{{ author }}</h4>
+                    {% endfor %}
+                </div>
+                <div class="category text-bold">
+                    Kategorie: {{ object.category }}
+                </div>
+                <div class="price-area my-4">
+                    <p>Cena: {{ object.unit_price }} CZK</p>
+                </div>
+                <div class="buttons d-flex my-5">
+                    <div class="button-group">
+                        <a href="{% url 'core:add_to_cart_detail' book_id=object.pk %}" class="btn add-to-cart-btn">Do košíku</a>
+                    </div>
+                </div>
+                <div class="product-details my-4">
+                    <h3 class="details-title text-color mb-3">Popis knihy</h3>
+                    <p class="description">{{ object.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container"> 
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Vyberte si další knihy z této kategorie:</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for book in related_books|slice:"0:4"|shuffle_list %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card border border-dark h-100">
+                    <a href="{% url 'core:book_detail' pk=book.pk %}">
+                        <img class="card-img-top" src="../../{{ book.thumbnail }}" alt="{{ book.slug }}">
+                    </a>
+                    <div class="card-body">
+                        <h6 class="card-title mb-1"><strong>{{ book.title }}</strong></h6>
+                        <span class="price mb-2">{{ book.unit_price }} Kč</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

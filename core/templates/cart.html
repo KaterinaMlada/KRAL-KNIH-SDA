@@ -1,7 +1,70 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box-element">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <a class="btn btn-outline-warning" href="{% url 'core:books' %}"> &#x2190; Pokračovat v nákupu</a>
 
-    <h1>KOŠÍK</h1>
+                    {% if cart %}
+                    <div class="cart-summary text-center">
+                        <h5 class="mb-3" style="font-size: 1.5rem;">Celkové informace o nákupu:</h5>
+                        <div class="summary-info">
+                            <div><strong>{{ items.count }}</strong> položek</div>
+                            <div style="font-size: 1.2rem;">Celková cena: <strong><span style="color: #8B4513;">{{ total_price|floatformat:2 }} Kč</span></strong></div>
+                        </div>
+                    </div>
+                    <div>
+                        <a class="btn btn-outline-warning" href="{% url 'core:checkout' %}">Pokračovat k platbě &#8594; </a>
+                    </div>
+                    {% endif %}
+                </div>
 
-{% endblock content %}
+                <div class="cart-items mt-4">
+                    <div class="cart-row cart-header">
+                        <div class="item-info">Název</div>
+                        <div class="item-info">Cena za kus</div>
+                        <div class="item-info">Množství</div>
+                        <div class="item-info">Cena celkem</div>
+                        <div class="item-info">(Kliknutím na tlačítko odstraníte produkt)</div>
+                    </div>
+
+                    {% for item in items %}
+                    <div class="cart-row py-3 border-bottom">
+                        <div class="item-info">
+                            <p class="mt-2">{{ item.book.title }}</p>
+                        </div>
+                        <div class="item-info">{{ item.book.unit_price|floatformat:2 }} Kč</div>
+                        <div class="item-info">
+                            <div class="quantity">
+                                <a href="{% url 'core:update_cart_item' book_id=item.book.id action='increase' %}">
+                                    <img class="chg-quantity" src="{% static 'images/arrow_up.png' %}" alt="Increase" style="margin-left: 6px;">
+                                </a>
+                                <p class="quantity ml-2">{{ item.quantity }}</p>
+                                <a href="{% url 'core:update_cart_item' book_id=item.book.id action='decrease' %}">
+                                    <img class="chg-quantity" src="{% static 'images/arrow_down.png' %}" alt="Decrease" style="margin-left: 6px;">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <span style="color: #8B4513;">{{ item.total_cost|floatformat:2 }} Kč</span>
+                        </div>
+                        <div class="item-info">
+                            <a href="{% url 'core:remove_from_cart' book_id=item.book.id %}" class="btn btn-danger btn-sm">Odstranit</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% if not cart %}
+                <p class="mt-3">Váš nákupní košík je prázdný.</p>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
