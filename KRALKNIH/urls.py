@@ -20,6 +20,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from core.views import *
 from KRALKNIH import settings 
+from accounts.views import *
 
 admin.site.site_header = 'Král Knih - Administrační panel'
 
@@ -28,6 +29,7 @@ urlpatterns = [
     path('', include('core.urls')),
     path('tags/', include('tags.urls')),
     path('likes/', include('likes.urls')),
+    path('accounts/', include('accounts.urls', 'accounts')),
  
  ]
 

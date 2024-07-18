@@ -1,9 +1,35 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-   <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Place Order</button>
-</form>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="box-element" id="form-wrapper">
+            <form id="form" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input id="form-button" class="btn btn-warning btn-block" type="submit" value="Zaplatit">
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="box-element">
+            <a class="btn btn-warning" href="{% url 'core:cart' %}">&#x2190; Zpět do košíku</a>
+            <hr>
+            <h3>Přehled objednávky:</h3>
+            <hr>
+            <div class="cart-container">
+                {% for item in items %}
+                <div class="cart-row" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <div class="cart-item" style="flex: 2;"><p>{{ item.book.title }}</p></div>
+                    <div class="cart-item" style="flex: 1; text-align: right; color: #800020;"><p>{{ item.book.unit_price }},-</p></div>
+                    <div class="cart-item" style="flex: 1; text-align: right;"><p>x{{ item.quantity }}</p></div>
+                </div>
+                {% endfor %}
+            </div>
+            <h5>Položky: {{ items|length }}</h5>
+            <h5>Celkem: <span style="color: #800020;">{{ total_price }},-</span></h5>
+        </div>
+    </div>
+</div>
 {% endblock content %}

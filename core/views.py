@@ -26,7 +26,6 @@ class BookDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         current_book = self.get_object()
         
-        # Get related books and shuffle them
         related_books = list(Book.objects.filter(category=current_book.category).exclude(pk=current_book.pk)[:5])
         shuffle(related_books)
         
@@ -65,7 +64,7 @@ def checkout(request):
     if request.method == 'POST':
         form = CheckoutForm(request.POST)
         if form.is_valid():
-            # Create or retrieve the customer
+           
             customer, created = Customer.objects.get_or_create(
                 email=form.cleaned_data['email'],
                 defaults={
@@ -76,7 +75,7 @@ def checkout(request):
                 }
             )
 
-            # Create the address
+           
             address = Address.objects.create(
                 street=form.cleaned_data['street'],
                 city=form.cleaned_data['city'],
@@ -85,14 +84,14 @@ def checkout(request):
                 customer=customer
             )
 
-            # Create the order
+          
             order = Order.objects.create(
                 customer=customer,
                 payment_status=Order.PAYMENT_STATUS_PENDING,
                 total_cost=sum(item.quantity * item.book.unit_price for item in items)
             )
 
-            # Create order items
+          
             for item in items:
                 OrderItem.objects.create(
                     order=order,
@@ -101,7 +100,7 @@ def checkout(request):
                     unit_price=item.book.unit_price
                 )
 
-            # Clear the cart
+           
             cart.cartitem_set.all().delete()
             del request.session['cart_id']
             return redirect('core:order_success')
@@ -122,6 +121,7 @@ def checkout(request):
 
 def order_success(request):
     return render(request, 'order_success.html')
+
 
 #CART
 

@@ -1,6 +1,6 @@
-# forms.py
 from django import forms
 from .models import Address
+
 
 class CheckoutForm(forms.Form):
     first_name = forms.CharField(max_length=15)
@@ -11,3 +11,6 @@ class CheckoutForm(forms.Form):
     city = forms.CharField(max_length=20)
     zip_code = forms.CharField(max_length=10)
     country = forms.CharField(max_length=15)
+
+   
+

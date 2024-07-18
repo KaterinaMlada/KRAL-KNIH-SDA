@@ -42,7 +42,7 @@
             </ul>
 
             <div class="form-inline my-2 my-lg-0">
-                <a href="#" class="btn btn-light" >Přihlášení</a>
+                <a href="{% url 'accounts:login' %}" class="btn btn-light">Přihlásit se</a>
                 <a href="{% url 'core:cart' %}">
                     <img id="cart-icon" src="{% static 'images/cart.png' %}" alt="Cart" >
                 </a>

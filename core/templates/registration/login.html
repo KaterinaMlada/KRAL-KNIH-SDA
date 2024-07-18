@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    Přihlášení
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="form-group">
+                            <label for="id_username">Uživatelské jméno:</label>
+                            {{ form.username|add_class:'form-control' }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_password">Heslo:</label>
+                            {{ form.password|add_class:'form-control' }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Přihlásit se</button>
+                        <a href="{% url 'accounts:register' %}" class="btn btn-primary">Registrace</a>
+                    </form>
+                </div>
+            </div>           
+        </div>
+    </div>
+</div>
+{% endblock %}
