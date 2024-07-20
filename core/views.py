@@ -134,15 +134,14 @@ def add_to_cart(request, book_id):
         cart = Cart.objects.create()
         request.session['cart_id'] = str(cart.id)
 
-
-
-    
     cart_item, item_created = CartItem.objects.get_or_create(cart=cart, book=book)
 
-    
     if not item_created:
         cart_item.quantity += 1
         cart_item.save()
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({'message': 'Item added to cart'})
 
     return redirect('core:books')
 
@@ -165,6 +164,8 @@ def add_to_cart_detail(request, book_id):
         cart_item.quantity += 1
         cart_item.save()
 
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({'message': 'Item added to cart'})
 
     return redirect('core:book_detail', pk=book.pk)
 
@@ -210,7 +211,6 @@ def remove_from_cart(request, book_id):
     cart_item = get_object_or_404(CartItem, cart=cart, book_id=book_id)
     cart_item.delete()
     return redirect(reverse('core:cart'))
-
 
 
 def cart_count(request):

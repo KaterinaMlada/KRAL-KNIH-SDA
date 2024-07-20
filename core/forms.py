@@ -3,14 +3,14 @@ from .models import Address
 
 
 class CheckoutForm(forms.Form):
-    first_name = forms.CharField(max_length=15)
-    last_name = forms.CharField(max_length=25)
-    email = forms.EmailField()
-    phone = forms.CharField(max_length=15, required=False)
-    street = forms.CharField(max_length=50)
-    city = forms.CharField(max_length=20)
-    zip_code = forms.CharField(max_length=10)
-    country = forms.CharField(max_length=15)
+    first_name = forms.CharField(max_length=15, label='Jméno')
+    last_name = forms.CharField(max_length=25, label='Příjmení')
+    email = forms.EmailField(label='E-mail')
+    phone = forms.CharField(max_length=15, required=False, label='Telefon')
+    street = forms.CharField(max_length=50, label='Ulice a číslo popisné')
+    city = forms.CharField(max_length=20,label='Město')
+    zip_code = forms.CharField(max_length=10, label='PSČ')
+    country = forms.CharField(max_length=15, label='Země')
 
 
 class PaymentForm(forms.Form):

@@ -2,27 +2,27 @@
 {% load static %}
 
 {% block content %}
-<h1>Order Summary</h1>
+<h1>Shrnutí objednávky</h1>
 <div class="order-details">
-    <h3>Customer Information</h3>
-    <p>Name: {{ customer.first_name }} {{ customer.last_name }}</p>
+    <h3>Informace o zákazníkovi</h3>
+    <p>Jméno: {{ customer.first_name }} {{ customer.last_name }}</p>
     <p>Email: {{ customer.email }}</p>
-    <p>Phone: {{ customer.phone }}</p>
-    <h4>Address</h4>
-    <p>Street: {{ address.street }}</p>
-    <p>City: {{ address.city }}</p>
-    <p>Zip Code: {{ address.zip_code }}</p>
-    <p>Country: {{ address.country }}</p>
+    <p>Telefon: {{ customer.phone }}</p>
+    <h4>Adresa</h4>
+    <p>Ulice: {{ address.street }}</p>
+    <p>Město: {{ address.city }}</p>
+    <p>PSČ: {{ address.zip_code }}</p>
+    <p>Země: {{ address.country }}</p>
     
-    <h3>Order Information</h3>
+    <h3>Informace o objednávce</h3>
     <ul>
         {% for item in items %}
         <li>{{ item.book.title }} - {{ item.quantity }} x {{ item.unit_price }}</li>
         {% endfor %}
     </ul>
-    <p>Total Cost: {{ order.total_cost }}</p>
+    <p>Celková cena: {{ order.total_cost }}</p>
     
-    <h3>Payment Method</h3>
+    <h3>Typ platby</h3>
     <form method="post">
         {% csrf_token %}
         {{ payment_form.as_p }}
@@ -30,7 +30,7 @@
         <h3>Delivery Method</h3>
         {{ delivery_form.as_p }}
         
-        <input type="submit" value="Confirm Order">
+        <input type="submit" class="btn btn-warning btn-block" value="Potvrdit objednávku">
     </form>
 </div>
 {% endblock %}
