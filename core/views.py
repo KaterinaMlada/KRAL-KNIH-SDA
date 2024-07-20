@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 
-from core.forms import CheckoutForm
+from core.forms import CheckoutForm, PaymentForm, DeliveryForm
 from core.models import Book, Cart, CartItem, Category, Address, Order, OrderItem, Customer
 from django.http import JsonResponse
 from random import shuffle
@@ -103,7 +103,7 @@ def checkout(request):
            
             cart.cartitem_set.all().delete()
             del request.session['cart_id']
-            return redirect('core:order_success')
+            return redirect('core:order_summary', order_id=order.id)
 
     else:
         form = CheckoutForm()
@@ -221,3 +221,32 @@ def cart_count(request):
     else:
         cart_count = 0
     return JsonResponse({'count': cart_count})
+
+
+def order_summary(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    customer = order.customer
+    items = order.orderitem_set.all()
+    address = Address.objects.filter(customer=customer).last()
+
+    if request.method == 'POST':
+        payment_form = PaymentForm(request.POST)
+        delivery_form = DeliveryForm(request.POST)
+
+        if payment_form.is_valid() and delivery_form.is_valid():
+            # Process payment and delivery method
+            # For now, just redirect to a success page
+            return redirect('core:order_success')
+    else:
+        payment_form = PaymentForm()
+        delivery_form = DeliveryForm()
+
+    context = {
+        'order': order,
+        'customer': customer,
+        'address': address,
+        'items': items,
+        'payment_form': payment_form,
+        'delivery_form': delivery_form,
+    }
+    return render(request, 'order_summary.html', context)

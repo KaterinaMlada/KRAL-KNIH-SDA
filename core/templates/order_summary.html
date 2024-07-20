@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Order Summary</h1>
+<div class="order-details">
+    <h3>Customer Information</h3>
+    <p>Name: {{ customer.first_name }} {{ customer.last_name }}</p>
+    <p>Email: {{ customer.email }}</p>
+    <p>Phone: {{ customer.phone }}</p>
+    <h4>Address</h4>
+    <p>Street: {{ address.street }}</p>
+    <p>City: {{ address.city }}</p>
+    <p>Zip Code: {{ address.zip_code }}</p>
+    <p>Country: {{ address.country }}</p>
+    
+    <h3>Order Information</h3>
+    <ul>
+        {% for item in items %}
+        <li>{{ item.book.title }} - {{ item.quantity }} x {{ item.unit_price }}</li>
+        {% endfor %}
+    </ul>
+    <p>Total Cost: {{ order.total_cost }}</p>
+    
+    <h3>Payment Method</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ payment_form.as_p }}
+        
+        <h3>Delivery Method</h3>
+        {{ delivery_form.as_p }}
+        
+        <input type="submit" value="Confirm Order">
+    </form>
+</div>
+{% endblock %}

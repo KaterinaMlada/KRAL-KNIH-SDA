@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cec27482-2a52-441d-995d-b57f10763331" name="Changes" comment="Stepan 1307 - odmazani moshovych blbosti, poladeni modelu, templaty">
-      <change afterPath="$PROJECT_DIR$/core/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/templates/order_summary.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/templates/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/templates/cart.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/templates/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/templates/checkout.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/views.py" afterDir="false" />
@@ -57,7 +58,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
     "django.template.preview.state": "SHOW_EDITOR",
-    "git-widget-placeholder": "katerina__branch",
+    "git-widget-placeholder": "test",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/kupsi/Downloads/MOCK_DATA (5).csv",
     "node.js.detected.package.eslint": "true",
@@ -229,6 +230,7 @@
       <workItem from="1720937843371" duration="1322000" />
       <workItem from="1720939444239" duration="315000" />
       <workItem from="1721233353649" duration="4128000" />
+      <workItem from="1721462484289" duration="4334000" />
     </task>
     <task id="LOCAL-00001" summary="Stepan 2706 - modely cast 1">
       <option name="closed" value="true" />
@@ -422,7 +424,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="development" />
+                        <option value="test" />
                       </list>
                     </value>
                   </entry>
