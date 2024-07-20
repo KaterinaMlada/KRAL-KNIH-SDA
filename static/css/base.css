@@ -455,3 +455,25 @@ h1,h2,h3,h4,h5,h6{
 
 }
 
+.text-gold {
+    color: #d4af37;
+}
+
+.text-brown {
+    color: #362628;
+}
+
+.border-brown {
+    border-color: #362628;
+}
+
+
+.bg-gold {
+    background-color: #d4af37;
+}
+
+.btn-brown {
+    background-color: #362628;
+    color: #fff;
+}
+
