@@ -41,12 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
 
      # Custom Apps 
     'core.apps.CoreConfig',
-    'tags.apps.TagsConfig',
-    'likes.apps.LikesConfig',
     'accounts.apps.AccountsConfig',
  
     
