@@ -98,7 +98,7 @@ class Order(models.Model):
     placed_at = DateTimeField(auto_now_add=True)
     payment_status = CharField(max_length=1, choices=PAYMENT_STATUS_CHOICES)
     customer = ForeignKey(Customer, on_delete=models.PROTECT)
-    total_cost = DecimalField(max_digits=5, decimal_places=2) #FIXME aby pocitala soucet
+    total_cost = DecimalField(max_digits=10, decimal_places=2) #FIXME aby pocitala soucet
 
     def __str__(self):
         return f'Objednavka {self.placed_at}, {self.payment_status}'
