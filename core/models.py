@@ -75,7 +75,7 @@ class Book(models.Model):
         validators=[MinValueValidator(1)])
     category = ForeignKey(Category, on_delete=models.PROTECT)
     authors = ManyToManyField(Author)
-    thumbnail = ImageField(upload_to='static/images/', default='static/images/KK_logo.jpeg')
+    thumbnail = ImageField(upload_to='images/', default='images/KK_logo.jpeg')
     last_updated = DateTimeField(auto_now=True)
 
     def __str__(self):
