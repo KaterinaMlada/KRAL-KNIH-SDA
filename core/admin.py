@@ -22,13 +22,6 @@ class CategoryAdmin(ModelAdmin):
     def get_queryset(self, request):
         return super().get_queryset(request).annotate(books_count=Count('book'))
 
-"""
-class TagInline(GenericTabularInline):
-    autocomplete_fields = ['tag']
-    extra = 0
-    min_num = 0
-    model = TaggedItem
-"""
 
 @admin.register(Book)
 class BookAdmin(ModelAdmin):
