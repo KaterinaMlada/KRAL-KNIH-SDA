@@ -11,6 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Pro ikony -->
 </head>
 
 <body>
@@ -18,20 +19,30 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-            
-
         <a class="navbar-brand" href="{% url 'core:books' %}" style="display: inline-block;">
-          
-            <img src="{% static 'images/kk_logo.jpeg' %}"  alt="Král Knih Logo" style="height: 50px; padding-right: 5px; "> <span class="divider", name="divi1"></span>KRÁL KNIH
-            <span class="divider", name="divi2"></span>
+            <img src="{% static 'images/kk_logo.jpeg' %}"  alt="Král Knih Logo" style="height: 50px; padding-right: 5px; "> <span class="divider" name="divi1"></span>KRÁL KNIH
+            <span class="divider" name="divi2"></span>
         </a>
+
+        <div class="form-inline">
+            <form method="GET" action="{% url 'core:search' %}" class="input-group input-group-sm">
+                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="q" />
+                <div class="input-group-append">
+                    <button class="btn btn-outline-warning rounded-right" type="submit">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        
+
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
                     <a class="nav-link-custom" href="{% url 'core:about' %}">O nás</a>
@@ -41,25 +52,30 @@
                 </li>
             </ul>
 
-            <div class="form-inline my-2 my-lg-0">
-                 {% if user.is_authenticated %}
-                 <span class="navbar-text">Jeho veličenstvo.. <span class="username">{{ user.username }}&#128081;</span></span>
+                    
+                {% if user.is_authenticated %}
+                <span class="navbar-text">Jeho veličenstvo.. <a href="{% url 'accounts:profile' %}" class="username" style="color: #d4af37; text-decoration: underline;">{{ user.username }}</a>&#128081;</span>
                     <a href="{% url 'accounts:logout' %}" class="btn btn-light ml-2">Odhlásit se</a>
                 {% else %}
                 <a href="{% url 'accounts:login' %}" class="btn btn-light">Přihlásit se</a>
-                 {% endif %}    
-                    <a href="{% url 'core:cart' %}">
+                {% endif %}
+                <a href="{% url 'core:cart' %}">
                     <img id="cart-icon" src="{% static 'images/cart.png' %}" alt="Cart" >
                 </a>
-                <p id="cart_count" > 0 </p>
+                <p id="cart_count">0</p>
             </div>
         </div>
+
+
+       
     </nav>
 
     <div class="container fixed">
         {% block content %}
         {% endblock content %}
     </div>
+
+<script src= "{% static 'js/base.js' %}" ></script>
 
 </body>
 

@@ -24,6 +24,7 @@ urlpatterns = [
     path('order_success/', views.order_success, name='order_success'),
 
     path('about/', views.show_about, name='about'),
+    path('search/', views.search, name='search'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

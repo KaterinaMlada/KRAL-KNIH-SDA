@@ -1,0 +1,19 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Výsledky hledání pro "{{ query }}"</h2>
+
+{% if results %}
+    <ul>
+        {% for book in results %}
+            <li>
+                <a href="{% url 'core:book_detail' book.id %}">{{ book.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Žádné výsledky nenalezeny.</p>
+{% endif %}
+{% endblock %}
+    

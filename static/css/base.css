@@ -475,8 +475,14 @@ h1,h2,h3,h4,h5,h6{
 .btn-brown {
     background-color: #362628;
     color: #fff;
+
 }
 
-.username { 
-    color: #d4af37;
+.form-control {
+    font-size: 14px; 
+    padding: 6px 12px; 
+}
+
+.form-inline {
+    margin-top: 17px;
 }

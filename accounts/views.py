@@ -35,3 +35,7 @@ def register_view(request):
 def logout_view(request):
     logout(request)
     return redirect('core:books')
+
+
+def profile_view(request):
+    return render(request, 'registration/profile.html')
