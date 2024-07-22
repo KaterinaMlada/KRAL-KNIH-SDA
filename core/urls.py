@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf.urls.static import static
+from KRALKNIH import settings
 from . import views
 from .views import cart_count
 
@@ -18,9 +20,10 @@ urlpatterns = [
     path('cart/count/', cart_count, name='cart_count'),
 
     path('checkout/', views.checkout, name='checkout'),
+    path('order-summary/<int:order_id>/', views.order_summary, name='order_summary'),
     path('order_success/', views.order_success, name='order_success'),
 
     path('about/', views.show_about, name='about'),
-
-
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

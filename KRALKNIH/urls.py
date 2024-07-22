@@ -27,8 +27,6 @@ admin.site.site_header = 'Král Knih - Administrační panel'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
-    path('tags/', include('tags.urls')),
-    path('likes/', include('likes.urls')),
     path('accounts/', include('accounts.urls', 'accounts')),
  
  ]

@@ -41,12 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
 
      # Custom Apps 
     'core.apps.CoreConfig',
-    'tags.apps.TagsConfig',
-    'likes.apps.LikesConfig',
     'accounts.apps.AccountsConfig',
  
     
@@ -138,6 +135,7 @@ STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = BASE_DIR/'static/images'
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+LOGOUT_REDIRECT_URL = '/'

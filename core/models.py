@@ -75,7 +75,7 @@ class Book(models.Model):
         validators=[MinValueValidator(1)])
     category = ForeignKey(Category, on_delete=models.PROTECT)
     authors = ManyToManyField(Author)
-    thumbnail = ImageField(upload_to='static/images/', default='static/images/KK_logo.jpeg')
+    thumbnail = ImageField(upload_to='images/', default='images/KK_logo.jpeg')
     last_updated = DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -98,7 +98,7 @@ class Order(models.Model):
     placed_at = DateTimeField(auto_now_add=True)
     payment_status = CharField(max_length=1, choices=PAYMENT_STATUS_CHOICES)
     customer = ForeignKey(Customer, on_delete=models.PROTECT)
-    total_cost = DecimalField(max_digits=5, decimal_places=2) #FIXME aby pocitala soucet
+    total_cost = DecimalField(max_digits=10, decimal_places=2) #FIXME aby pocitala soucet
 
     def __str__(self):
         return f'Objednavka {self.placed_at}, {self.payment_status}'

@@ -1,1 +1,27 @@
-/db.sqlite3
+# Ignore virtual environment directories
+env/
+venv/
+
+# Ignore Python compiled files
+*.pyc
+__pycache__/
+
+# Ignore database file
+*.sqlite3
+
+# Ignore Django migrations
+*/migrations/*.pyc
+*/migrations/*.pyo
+*/migrations/*.log
+*/migrations/__pycache__/
+
+# Ignore log files
+*.log
+
+# Ignore IDE specific files
+.vscode/
+.idea/
+
+# Ignore system files
+.DS_Store
+Thumbs.db

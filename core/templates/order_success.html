@@ -2,6 +2,10 @@
 {% load static %}
 
 {% block content %}
-<h1>Order Successful</h1>
-<p>Your order has been placed successfully!</p>
+<div class="container text-center">
+    <h1 class="display-4 mb-4">Královsky objednáno!</h1>
+    <p class="lead mb-4">Vaše objednávka byla úspěšně přijata. Děkujeme za váš nákup!</p>
+    <p class="mb-4">Na e-mailovou adresu, kterou jste zadali, jsme právě odeslali potvrzení objednávky. Pokud máte jakékoli dotazy, neváhejte nás kontaktovat.</p>
+    <a href="{% url 'core:books' %}" class="btn btn-warning">&#x2190; Zpět na hlavní stránku</a>
+</div>
 {% endblock %}
