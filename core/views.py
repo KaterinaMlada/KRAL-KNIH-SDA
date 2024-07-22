@@ -268,3 +268,61 @@ def search(request):
         results = Book.objects.none()
 
     return render(request, 'search_results.html', {'results': results, 'query': query})
+
+#view.test
+
+from django.test import TestCase, Client
+from django.urls import reverse
+from django.contrib.auth.models import User
+from .models import Cart, CartItem, Book
+
+class CartViewTestCase(TestCase):
+
+    def setUp(self):
+        # Vytvoření uživatele 
+        self.user = User.objects.create_user(username='testuser', password='12345')
+
+        # Vytvoření knihy pro testování
+        self.book = Book.objects.create(
+            title='Kniha',
+            author='Author',
+            unit_price=10.00
+        )
+
+        # Vytvoření košíku a položky v košíku
+        self.cart = Cart.objects.create()
+        self.cart_item = CartItem.objects.create(
+            cart=self.cart,
+            book=self.book,
+            quantity=2
+        )
+
+        # Vytvoření klienta a nastavení session
+        self.client = Client()
+        self.client.login(username='testuser', password='12345')
+        self.client.session['cart_id'] = self.cart.id
+        self.client.session.save()
+
+    def test_cart_view_with_cart_id(self):
+        response = self.client.get(reverse('cart'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'cart.html')
+        self.assertIn('cart', response.context)
+        self.assertIn('items', response.context)
+        self.assertIn('total_price', response.context)
+        self.assertIn('total_quantity', response.context)
+
+        # Ověření obsahu
+        self.assertEqual(response.context['cart'], self.cart)
+        self.assertEqual(len(response.context['items']), 1)
+        self.assertEqual(response.context['total_price'], 20.00)  # 2 * 10.00
+        self.assertEqual(response.context['total_quantity'], 2)
+
+    def test_cart_view_without_cart_id(self):
+        self.client.session['cart_id'] = None
+        self.client.session.save()
+
+        response = self.client.get(reverse('cart'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'cart.html')
+        self.a

@@ -121,10 +121,14 @@ class Cart(models.Model):
         return str(self.id)
 
     def add_item(self, book, quantity=1):
+
         item, created = CartItem.objects.get_or_create(cart=self, book=book)
         if not created:
             item.quantity += quantity
+        else:
+            item.quantity = quantity  
         item.save()
+
 
 
 class CartItem(models.Model): 
