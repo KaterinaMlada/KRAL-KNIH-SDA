@@ -4,7 +4,6 @@ from .models import Address
 
 from django import forms
 
-
 class CheckoutForm(forms.Form):
     first_name = forms.CharField(
         max_length=15, 

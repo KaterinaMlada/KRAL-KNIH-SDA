@@ -26,7 +26,7 @@
 
         <div class="form-inline">
             <form method="GET" action="{% url 'core:search' %}" class="input-group input-group-sm">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="q" />
+                <input type="search" class="form-control rounded" placeholder="Hledat.." aria-label="Search" aria-describedby="search-addon" name="q" />
                 <div class="input-group-append">
                     <button class="btn btn-outline-warning rounded-right" type="submit">
                         <i class="fa fa-search" aria-hidden="true"></i>
@@ -47,6 +47,7 @@
                 <li class="nav-item">
                     <a class="nav-link-custom" href="{% url 'core:about' %}">O nás</a>
                 </li>
+                
                 <li class="nav-item">
                     <a class="nav-link-custom" href="/admin">Admin</a>
                 </li>
