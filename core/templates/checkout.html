@@ -22,13 +22,13 @@
                 {% for item in items %}
                 <div class="cart-row" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                     <div class="cart-item" style="flex: 2;"><p>{{ item.book.title }}</p></div>
-                    <div class="cart-item" style="flex: 1; text-align: right; color: #800020;"><p>{{ item.book.unit_price }},-</p></div>
+                    <div class="cart-item" style="flex: 1; text-align: right; color: #800020;"><p>{{ item.book.unit_price }} Kč</p></div>
                     <div class="cart-item" style="flex: 1; text-align: right;"><p>x{{ item.quantity }}</p></div>
                 </div>
                 {% endfor %}
             </div>
-            <h5>Položky: {{ items|length }}</h5>
-            <h5>Celkem: <span style="color: #800020;">{{ total_price }},-</span></h5>
+            <h5>Položky: {{ total_quantity }}</h5>
+            <h5>Celkem: <span style="color: #800020;">{{ total_price }} Kč</span></h5>
         </div>
     </div>
 </div>
