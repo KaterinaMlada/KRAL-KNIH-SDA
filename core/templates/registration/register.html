@@ -6,17 +6,19 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card">
+            <div class="card shadow-sm">
                 <div class="card-header bg-dark text-white">
-                    User Registration
+                   Registrace
                 </div>
-                <form method="post">
-                    {% csrf_token %}
-                        {{ form.as_p }} 
-                    <button class="btn btn-primary" type="submit">Potvrdit registraci</button>
-                        </form>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button class="btn btn-warning w-100 mt-3" type="submit">Potvrdit registraci</button>
+                    </form>
+
                     {% if form.errors %}
-                        <div class="error">
+                        <div class="alert alert-warning mt-3">
                             <p>Možné chyby:</p>
                             <ul>
                                 {% for field in form %}
@@ -30,4 +32,9 @@
                             </ul>
                         </div>
                     {% endif %}
-                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

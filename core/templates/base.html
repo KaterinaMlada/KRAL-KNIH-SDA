@@ -58,7 +58,7 @@
                 <span class="navbar-text">Jeho veličenstvo.. <a href="{% url 'accounts:profile' %}" class="username" style="color: #d4af37; text-decoration: underline;">{{ user.username }}</a>&#128081;</span>
                     <a href="{% url 'accounts:logout' %}" class="btn btn-light ml-2">Odhlásit se</a>
                 {% else %}
-                <a href="{% url 'accounts:login' %}" class="btn btn-light">Přihlásit se</a>
+                <a href="{% url 'accounts:login' %}" class="btn btn-warning">Přihlásit se</a>
                 {% endif %}
                 <a href="{% url 'core:cart' %}">
                     <img id="cart-icon" src="{% static 'images/cart.png' %}" alt="Cart" >
