@@ -3,30 +3,31 @@
 {% load custom_filters %}
 
 {% block content %}
-
-<div class="container">
-    <h1>User Registration</h1>
-    <form method="post" class="registration-form">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
-
-    <!-- Zobrazování chybových zpráv -->
-    {% if form.errors %}
-        <div class="error">
-            <p>There were errors with your submission:</p>
-            <ul>
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
-
-{% endblock %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    User Registration
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                        {{ form.as_p }} 
+                    <button class="btn btn-primary" type="submit">Potvrdit registraci</button>
+                        </form>
+                    {% if form.errors %}
+                        <div class="error">
+                            <p>Možné chyby:</p>
+                            <ul>
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                                {% for error in form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    {% endblock %}
