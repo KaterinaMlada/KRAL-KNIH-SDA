@@ -1,8 +1,7 @@
-from django import forms
 from .models import Address
-
-
 from django import forms
+from django.contrib.auth.models import User
+
 
 class CheckoutForm(forms.Form):
     first_name = forms.CharField(
@@ -64,3 +63,20 @@ class DeliveryForm(forms.Form):
     delivery_method = forms.ChoiceField(choices=DELIVERY_METHOD_CHOICES, widget=forms.RadioSelect)
 
 
+class UserRegisterForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+    password_confirm = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        password_confirm = cleaned_data.get("password_confirm")
+
+        if password != password_confirm:
+            raise forms.ValidationError("Passwords do not match")
+
+        return cleaned_data
