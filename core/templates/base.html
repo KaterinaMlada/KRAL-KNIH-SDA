@@ -43,15 +43,15 @@
 
             <div class="form-inline my-2 my-lg-0">
                  {% if user.is_authenticated %}
-                    <span class="navbar-text">Jeho veličenstvo {{ user.username }}</span>
+                 <span class="navbar-text">Jeho veličenstvo.. <span class="username">{{ user.username }}&#128081;</span></span>
                     <a href="{% url 'accounts:logout' %}" class="btn btn-light ml-2">Odhlásit se</a>
                 {% else %}
                 <a href="{% url 'accounts:login' %}" class="btn btn-light">Přihlásit se</a>
-                <a href="{% url 'core:cart' %}">
                  {% endif %}    
+                    <a href="{% url 'core:cart' %}">
                     <img id="cart-icon" src="{% static 'images/cart.png' %}" alt="Cart" >
                 </a>
-                <p id="cart-total" > 0 </p>
+                <p id="cart_count" > 0 </p>
             </div>
         </div>
     </nav>
