@@ -11,6 +11,7 @@ from django.utils import timezone
 from django.shortcuts import render
 from django.db.models import Q
 
+
 class BooksView(ListView):
     template_name = 'books.html'
     model = Book
@@ -76,8 +77,7 @@ def checkout(request):
                     'first_name': form.cleaned_data['first_name'],
                     'last_name': form.cleaned_data['last_name'],
                     'phone': form.cleaned_data['phone'],
-                    'membership': Customer.MEMBERSHIP_BRONZE  # Default membership
-                }
+                    }
             )
 
             address = Address.objects.create(
@@ -122,7 +122,6 @@ def checkout(request):
         'form': form
     }
     return render(request, 'checkout.html', context)
-
 
 
 def order_success(request):
@@ -194,7 +193,6 @@ def cart(request):
     return render(request, 'cart.html', context)
 
 
-
 def update_cart_item(request, book_id, action):
     cart_id = request.session.get('cart_id')
     if not cart_id:
@@ -217,6 +215,7 @@ def remove_from_cart(request, book_id):
     cart_item = get_object_or_404(CartItem, cart=cart, book_id=book_id)
     cart_item.delete()
     return redirect(reverse('core:cart'))
+
 
 def cart_count(request):
     cart_id = request.session.get('cart_id')
@@ -254,6 +253,7 @@ def order_summary(request, order_id):
         'delivery_form': delivery_form,
     }
     return render(request, 'order_summary.html', context)
+
 
 def search(request):
     query = request.GET.get('q', '')

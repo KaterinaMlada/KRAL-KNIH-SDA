@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models import Model, CharField, IntegerField, EmailField, ForeignKey, DecimalField, ManyToManyField, DateTimeField, TextField, DateField, PositiveSmallIntegerField, ImageField
 from uuid import uuid4
 
+
 class Author(models.Model):
     first_name = CharField(max_length=15)
     last_name = CharField(max_length=25)
@@ -14,29 +15,20 @@ class Author(models.Model):
     class Meta:
         ordering = ['last_name', 'first_name']
 
+
 class Customer(models.Model):
-    MEMBERSHIP_BRONZE = 'B'
-    MEMBERSHIP_SILVER = 'S'
-    MEMBERSHIP_GOLD = 'G'
-
-    MEMBERSHIP_CHOICES = [
-        (MEMBERSHIP_BRONZE, 'Bronze'),
-        (MEMBERSHIP_SILVER, 'Silver'),
-        (MEMBERSHIP_GOLD, 'Gold'),
-    ]
-
     first_name = CharField(max_length=15, default=None)
     last_name = CharField(max_length=25, default=None)
     email = EmailField(unique=True, default=None)
     phone = CharField(max_length=15, null=True)
     birth_date = DateField(null=True)
-    membership = CharField(max_length=15, choices=MEMBERSHIP_CHOICES, default=MEMBERSHIP_BRONZE)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
     class Meta:
         ordering = ['last_name', 'first_name']
+
 
 class Address(models.Model):
     street = CharField(max_length=50)
@@ -52,6 +44,7 @@ class Address(models.Model):
     def __str__(self):
         return f'{self.city} , {self.street}'
 
+
 class Category(models.Model):
     title = CharField(max_length=15)
 
@@ -61,6 +54,7 @@ class Category(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+
 
 class Book(models.Model):
     title = CharField(max_length=50)
@@ -84,6 +78,7 @@ class Book(models.Model):
     class Meta:
         ordering = ['title']
 
+
 class Order(models.Model):
     PAYMENT_STATUS_COMPLETE = 'C'
     PAYMENT_STATUS_PENDING = 'P'
@@ -98,7 +93,7 @@ class Order(models.Model):
     placed_at = DateTimeField(auto_now_add=True)
     payment_status = CharField(max_length=1, choices=PAYMENT_STATUS_CHOICES)
     customer = ForeignKey(Customer, on_delete=models.PROTECT)
-    total_cost = DecimalField(max_digits=10, decimal_places=2) #FIXME aby pocitala soucet
+    total_cost = DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
         return f'Objednavka {self.placed_at}, {self.payment_status}'
@@ -106,11 +101,13 @@ class Order(models.Model):
     class Meta:
         ordering = ['placed_at']
 
+
 class OrderItem(models.Model):
     order = ForeignKey(Order, on_delete=models.PROTECT)
     book = ForeignKey(Book, on_delete=models.PROTECT)
     quantity = PositiveSmallIntegerField()
     unit_price = DecimalField(max_digits=6, decimal_places=2)
+
 
 class Cart(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4)
@@ -128,7 +125,6 @@ class Cart(models.Model):
         else:
             item.quantity = quantity  
         item.save()
-
 
 
 class CartItem(models.Model): 

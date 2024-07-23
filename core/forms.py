@@ -1,3 +1,5 @@
+from django.contrib.auth.forms import UserCreationForm
+
 from .models import Address
 from django import forms
 from django.contrib.auth.models import User
@@ -63,24 +65,35 @@ class DeliveryForm(forms.Form):
     delivery_method = forms.ChoiceField(choices=DELIVERY_METHOD_CHOICES, widget=forms.RadioSelect)
 
 
-
-class UserRegisterForm(forms.ModelForm):
+class UserRegisterForm(UserCreationForm):
+    #Hazelo chybu ohledna hesla, vyreseno podedenim z preddefinovane tridy
+    """
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-        label="Password"
+        label="Heslo"
     )
     password_confirm = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-        label="Confirm Password"
-    )
+        label="Potvrzení hesla"
+        )
+    """
+
     email = forms.EmailField(
+        required= True,
         widget=forms.EmailInput(attrs={'class': 'form-control'}),
-        label="Email"
+        label="E-mail"
     )
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'email', 'password1', 'password2']
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Email already exists")
+        return email
+
 
     def clean(self):
         cleaned_data = super().clean()
@@ -91,3 +104,27 @@ class UserRegisterForm(forms.ModelForm):
             raise forms.ValidationError("Passwords do not match")
 
         return cleaned_data
+
+
+class EditProfileForm(forms.ModelForm):
+    first_name = forms.CharField(
+        max_length=30,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        label="First Name"
+    )
+    last_name = forms.CharField(
+        max_length=30,
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        label="Last Name"
+    )
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(attrs={'class': 'form-control'}),
+        label="Email"
+    )
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']

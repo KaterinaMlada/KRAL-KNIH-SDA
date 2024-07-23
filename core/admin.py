@@ -4,7 +4,6 @@ from django.db.models import Count
 from core.models import *
 
 
-
 @admin.register(Author)
 class AuthorAdmin(ModelAdmin):
     search_fields = ['first_name', 'last_name']
@@ -44,9 +43,7 @@ class BookAdmin(ModelAdmin):
 
 @admin.register(Customer)
 class CustomerAdmin(ModelAdmin):
-    list_display = ['last_name', 'first_name', 'membership',]
-    list_editable = ['membership']
-    list_filter = ['membership']
+    list_display = ['last_name', 'first_name']
     list_per_page = 10
     search_fields = ['last_name', 'first_name']
 
