@@ -91,7 +91,8 @@ def checkout(request):
             order = Order.objects.create(
                 customer=customer,
                 payment_status=Order.PAYMENT_STATUS_PENDING,
-                total_cost=sum(item.quantity * item.book.unit_price for item in items)
+                total_cost=sum(item.quantity * item.book.unit_price for item in items),
+                user=request.user if request.user.is_authenticated else None,
             )
 
             for item in items:

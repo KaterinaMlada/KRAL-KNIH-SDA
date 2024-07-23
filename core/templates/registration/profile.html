@@ -35,5 +35,32 @@
             </div>
         </div>
     </div>
+     <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+            <h2>Your Orders</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID objednávky</th>
+                        <th>Datum</th>
+                        <th>Status</th>
+                        <th>Celková cena</th>
+                        <th>Zákazník</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.placed_at }}</td>
+                            <td>{{ order.get_payment_status_display }}</td>
+                            <td>{{ order.total_cost }}</td>
+                            <td>{{ order.customer }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

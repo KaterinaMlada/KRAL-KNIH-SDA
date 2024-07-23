@@ -94,6 +94,7 @@ class Order(models.Model):
     payment_status = CharField(max_length=1, choices=PAYMENT_STATUS_CHOICES)
     customer = ForeignKey(Customer, on_delete=models.PROTECT)
     total_cost = DecimalField(max_digits=10, decimal_places=2)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f'Objednavka {self.placed_at}, {self.payment_status}'

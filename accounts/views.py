@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 
 from core.forms import UserRegisterForm, EditProfileForm
+from core.models import Order
 
 
 def login_view(request):
@@ -49,4 +50,6 @@ def profile_view(request):
             return redirect('accounts:profile')
     else:
         form = EditProfileForm(instance=request.user)
-    return render(request, 'registration/profile.html', {'form': form})
+
+    orders = Order.objects.filter(user=request.user)
+    return render(request, 'registration/profile.html', {'form': form, 'orders': orders})
