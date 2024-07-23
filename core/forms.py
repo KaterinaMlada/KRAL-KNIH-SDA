@@ -1,4 +1,8 @@
+import re
+
 from django.contrib.auth.forms import UserCreationForm
+from django.core.validators import RegexValidator
+from phonenumber_field.formfields import PhoneNumberField
 
 from .models import Address
 from django import forms
@@ -7,12 +11,12 @@ from django.contrib.auth.models import User
 
 class CheckoutForm(forms.Form):
     first_name = forms.CharField(
-        max_length=15, 
+        max_length=50,
         label='Jméno',
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Vaše jméno'}))
    
     last_name = forms.CharField(
-        max_length=25, 
+        max_length=50,
         label='Příjmení',
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Vaše příjmení'}))
     
@@ -20,12 +24,15 @@ class CheckoutForm(forms.Form):
         label='E-mail',
         widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Váš e-mail'}))
     
-    phone = forms.CharField(
-        max_length=15, 
-        required=False, 
+    phone = PhoneNumberField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Telefonní číslo'}),
         label='Telefon',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Vaše telefonní číslo'}))
-    
+        required=False,
+        error_messages={
+            'invalid': 'Zadejte platné telefonní číslo ve formátu +XXXXXXXXXXXX.'
+        }
+    )
+
     street = forms.CharField(
         max_length=50, 
         label='Ulice a číslo popisné',
@@ -37,14 +44,22 @@ class CheckoutForm(forms.Form):
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Město'}))
    
     zip_code = forms.CharField(
-        max_length=10, 
+        max_length=5,
         label='PSČ',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'PSČ'}) )
-    
-    country = forms.CharField(
-        max_length=15, 
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'PSČ'}),
+        validators = [RegexValidator(regex=r'^\d{5}$', message='PSČ musí obsahovat přesně 5 číslic')]
+        #REGEX protože je to víc khůl a může začínat nulou
+    )
+
+    COUNTRY_CHOICES = [
+        ('cz', 'ČR'),
+        ('sk', 'SR'),
+    ]
+
+    country = forms.ChoiceField(
+        choices=COUNTRY_CHOICES,
         label='Země',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Země'}) )
+        widget=forms.Select(attrs={'class': 'form-control'} ))
 
 
 class PaymentForm(forms.Form):
@@ -66,17 +81,6 @@ class DeliveryForm(forms.Form):
 
 
 class UserRegisterForm(UserCreationForm):
-    #Hazelo chybu ohledna hesla, vyreseno podedenim z preddefinovane tridy
-    """
-    password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-        label="Heslo"
-    )
-    password_confirm = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-        label="Potvrzení hesla"
-        )
-    """
 
     email = forms.EmailField(
         required= True,
@@ -93,7 +97,6 @@ class UserRegisterForm(UserCreationForm):
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError("Email already exists")
         return email
-
 
     def clean(self):
         cleaned_data = super().clean()
