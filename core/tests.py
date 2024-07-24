@@ -1,9 +1,9 @@
-from django.test import TestCase
+from django.test import TestCase, SimpleTestCase, Client
 from .models import Cart, CartItem, Book, Customer, Category
 from django.contrib.auth.models import User
 from .forms import EditProfileForm
-from django.urls import reverse
-from django.utils import timezone
+from django.urls import reverse, resolve
+from core.views import *
 
 
 
@@ -100,4 +100,54 @@ if __name__ == "__main__":
     unittest.main()
 
 
-    
+# URL testy
+
+class URLTests(SimpleTestCase):
+
+    def test_books_url(self):
+        url = reverse('core:books')
+        self.assertEqual(resolve(url).func.view_class, BooksView)
+
+    def test_book_detail_url(self):
+        url = reverse('core:book_detail', args=['1'])
+        self.assertEqual(resolve(url).func.view_class, BookDetailView)
+
+
+# VIEW testy
+
+class BooksViewTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.category = Category.objects.create(title='Test Category')
+        self.book = Book.objects.create(
+            title='Test Book',
+            category=self.category,
+            unit_price=10.00
+        )
+
+    def test_books_view(self):
+        response = self.client.get(reverse('core:books'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'books.html')
+        self.assertIn('categories', response.context)
+        self.assertIn('object_list', response.context)
+        self.assertContains(response, self.book.title)
+
+
+class BookDetailViewTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.category = Category.objects.create(title='Test Category')
+        self.book = Book.objects.create(
+            title='Test Book',
+            category=self.category,
+            unit_price=10.00
+        )
+
+    def test_book_detail_view(self):
+        response = self.client.get(reverse('core:book_detail', args=[self.book.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'book_detail.html')
+        self.assertIn('object', response.context)
+        self.assertIn('related_books', response.context)
+        self.assertContains(response, self.book.title)
