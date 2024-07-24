@@ -145,13 +145,11 @@ def add_to_cart(request, book_id):
         cart_item.quantity += 1
         cart_item.save()
 
-
     return redirect('core:books')
 
 
 def add_to_cart_detail(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
- 
     cart_id = request.session.get('cart_id')
     if cart_id:
         cart = get_object_or_404(Cart, id=cart_id)
@@ -173,11 +171,7 @@ def cart(request):
     if cart_id:
         cart = get_object_or_404(Cart, id=cart_id)
         items = cart.cartitem_set.all()  
-        
-       
         total_price = sum(item.quantity * item.book.unit_price for item in items)
-        
- 
         total_quantity = sum(item.quantity for item in items)
     else:
         cart = None

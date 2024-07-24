@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 
 
 class CheckoutForm(forms.Form):
+
     first_name = forms.CharField(
         max_length=50,
         label='Jméno',
@@ -23,13 +24,31 @@ class CheckoutForm(forms.Form):
     email = forms.EmailField(
         label='E-mail',
         widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Váš e-mail'}))
-    
-    phone = PhoneNumberField(
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Telefonní číslo'}),
+
+    PREFIX_CHOICES = [
+        ('+420', '+420'),
+        ('+421', '+421'),
+    ]
+
+    prefix = forms.ChoiceField(
+        choices=PREFIX_CHOICES,
+        widget=forms.Select(attrs={
+            'class': 'form-control',
+        }),
+        label='Předvolba'
+        )
+
+    phone = forms.CharField(
+        max_length=9,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Telefonní číslo',
+            'oninput': 'this.value = this.value.replace(/[^0-9]/g, "")'
+        }),
         label='Telefon',
         required=False,
         error_messages={
-            'invalid': 'Zadejte platné telefonní číslo ve formátu +XXXXXXXXXXXX.'
+            'invalid': 'Zadejte platné devítimístné telefonní číslo.'
         }
     )
 
@@ -42,12 +61,18 @@ class CheckoutForm(forms.Form):
         max_length=20,
         label='Město',
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Město'}))
-   
+
     zip_code = forms.CharField(
+        max_length=5,
         label='PSČ',
-        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'PSČ'}),
-        validators = [RegexValidator(regex=r'^\d{5}$', message='PSČ musí obsahovat přesně 5 číslic')]
-        #REGEX protože je to víc khůl a může začínat nulou
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'PSČ',
+            'oninput': 'this.value = this.value.replace(/[^0-9]/g, "");'  # bude možné psát pouze čísla
+        }),
+        validators=[RegexValidator(regex=r'^\d{5}$', message='PSČ musí obsahovat přesně 5 číslic')],
+
+        # REGEX protože je to víc khůl a může začínat nulou
     )
 
     COUNTRY_CHOICES = [
@@ -59,6 +84,16 @@ class CheckoutForm(forms.Form):
         choices=COUNTRY_CHOICES,
         label='Země',
         widget=forms.Select(attrs={'class': 'form-control'} ))
+
+    def clean(self):
+        cleaned_data = super().clean()
+        prefix = cleaned_data.get('prefix')
+        phone = cleaned_data.get('phone')
+
+        if prefix and phone:
+            cleaned_data['phone'] = f"{prefix}{phone}"
+
+        return cleaned_data
 
 
 class PaymentForm(forms.Form):
