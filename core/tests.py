@@ -1,6 +1,11 @@
 from django.test import TestCase
-from .models import Cart, CartItem, Book, Customer, Category, Author
-from .forms import UserRegisterForm
+from .models import Cart, CartItem, Book, Customer, Category
+from django.contrib.auth.models import User
+from .forms import EditProfileForm
+from django.urls import reverse
+from django.utils import timezone
+
+
 
 #models
 class CartModelTestCase(TestCase):
@@ -39,66 +44,60 @@ class CartModelTestCase(TestCase):
 #forms
 
 
-class UserRegisterFormTestCase(TestCase):
+class EditProfileFormTest(TestCase):
+    
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='test',
+            password='test123',
+            first_name='Adam',
+            last_name='Mnich',
+            email='test@seznam.cz'
+        )
 
-    def test_form_valid_with_matching_passwords(self):
-        form_data = {
-            'username': 'testuser',
-            'email': 'testuser@gmail.com',
-            'password': 'password123',
-            'password_confirm': 'password123',
-        }
-        form = UserRegisterForm(data=form_data)
+    def test_form_valid_data(self):
+        form = EditProfileForm(data={
+            'first_name': 'Novy',
+            'last_name': 'Mnisek',
+            'email': 'novaadresa@seznam.cz'
+        })
         self.assertTrue(form.is_valid())
 
-    def test_form_invalid_with_non_matching_passwords(self):
-        form_data = {
-            'username': 'testuser',
-            'email': 'testuser@gmail.com',
-            'password': 'password123',
-            'password_confirm': 'differentpassword',
-        }
-        form = UserRegisterForm(data=form_data)
-        self.assertFalse(form.is_valid())
+    def test_form_empty_optional_fields(self):
+        form = EditProfileForm(data={
+            'first_name': 'Novy',
+            'last_name': '',
+            'email': 'novaadresa@seznam.cz'
+        })
+        self.assertTrue(form.is_valid())
 
-        self.assertIn('Passwords do not match', form.non_field_errors())
-
-    def test_form_invalid_without_email(self):
-        form_data = {
-            'username': 'testuser',
-            'password': 'password123',
-            'password_confirm': 'password123',
-        }
-        form = UserRegisterForm(data=form_data)
+    def test_form_invalid_email(self):
+        form = EditProfileForm(data={
+            'first_name': 'Novy',
+            'last_name': 'Mnisek',
+            'email': 'spatnyemail'
+        })
         self.assertFalse(form.is_valid())
         self.assertIn('email', form.errors)
 
-    def test_form_invalid_without_username(self):
-        form_data = {
-            'email': 'testuser@gmail.com',
-            'password': 'password123',
-            'password_confirm': 'password123',
-        }
-        form = UserRegisterForm(data=form_data)
+    def test_form_required_email(self):
+        form = EditProfileForm(data={
+            'first_name': 'Novy',
+            'last_name': 'Mnisek',
+            'email': ''
+        })
         self.assertFalse(form.is_valid())
-        self.assertIn('username', form.errors)
+        self.assertIn('email', form.errors)
 
-    def test_form_invalid_without_password(self):
-        form_data = {
-            'username': 'testuser',
-            'email': 'testuser@gmail.com',
-            'password_confirm': 'password123',
-        }
-        form = UserRegisterForm(data=form_data)
-        self.assertFalse(form.is_valid())
-        self.assertIn('password', form.errors)
+    def test_form_initial_data(self):
+        form = EditProfileForm(instance=self.user)
+        self.assertEqual(form.initial['first_name'], 'Adam')
+        self.assertEqual(form.initial['last_name'], 'Mnich')
+        self.assertEqual(form.initial['email'], 'test@seznam.cz')
 
-    def test_form_invalid_without_password_confirm(self):
-        form_data = {
-            'username': 'testuser',
-            'email': 'testuser@gmail.com',
-            'password': 'password123',
-        }
-        form = UserRegisterForm(data=form_data)
-        self.assertFalse(form.is_valid())
-        self.assertIn('password_confirm', form.errors)
+if __name__ == "__main__":
+    import unittest
+    unittest.main()
+
+
+    
