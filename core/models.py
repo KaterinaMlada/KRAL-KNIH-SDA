@@ -85,9 +85,9 @@ class Order(models.Model):
     PAYMENT_STATUS_FAILED = 'F'
 
     PAYMENT_STATUS_CHOICES = [
-        (PAYMENT_STATUS_COMPLETE, 'Complete'),
-        (PAYMENT_STATUS_PENDING, 'Pending'),
-        (PAYMENT_STATUS_FAILED, 'Failed'),
+        (PAYMENT_STATUS_COMPLETE, 'Zaplaceno'),
+        (PAYMENT_STATUS_PENDING, 'Čeká na zaplacení'),
+        (PAYMENT_STATUS_FAILED, 'Platba selhala'),
     ]
 
     placed_at = DateTimeField(auto_now_add=True)
