@@ -29,7 +29,9 @@
                         <div class="item-info">Cena za kus</div>
                         <div class="item-info">Množství</div>
                         <div class="item-info">Cena celkem</div>
+                        {% if cart %}
                         <div class="item-info">(Kliknutím na tlačítko odstraníte produkt)</div>
+                        {% endif %}
                     </div>
 
                     {% for item in items %}
