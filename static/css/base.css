@@ -504,4 +504,18 @@ h1,h2,h3,h4,h5,h6{
     margin-top: 17px;
 }
 
+/* formular */
 
+.form-label {
+            font-weight: bold;
+        }
+.input-group .form-control {
+            border-radius: 0.25rem;
+            border-color: #ced4da;
+        }
+.invalid-feedback {
+            display: block;
+        }
+.card {
+            border-radius: 0.5rem;
+        }
