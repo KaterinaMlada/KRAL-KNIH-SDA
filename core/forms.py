@@ -44,16 +44,15 @@ class CheckoutForm(forms.Form):
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Město'}))
    
     zip_code = forms.CharField(
-        max_length=5,
         label='PSČ',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'PSČ'}),
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'PSČ'}),
         validators = [RegexValidator(regex=r'^\d{5}$', message='PSČ musí obsahovat přesně 5 číslic')]
         #REGEX protože je to víc khůl a může začínat nulou
     )
 
     COUNTRY_CHOICES = [
-        ('cz', 'ČR'),
-        ('sk', 'SR'),
+        ('cz', 'Česká republika'),
+        ('sk', 'Slovensko'),
     ]
 
     country = forms.ChoiceField(
@@ -95,7 +94,7 @@ class UserRegisterForm(UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():
-            raise forms.ValidationError("Email already exists")
+            raise forms.ValidationError("Tento e-mail už někdo používá.")
         return email
 
     def clean(self):
@@ -104,7 +103,7 @@ class UserRegisterForm(UserCreationForm):
         password_confirm = cleaned_data.get("password_confirm")
 
         if password != password_confirm:
-            raise forms.ValidationError("Passwords do not match")
+            raise forms.ValidationError("Hesla se neshodují.")
 
         return cleaned_data
 
@@ -114,18 +113,18 @@ class EditProfileForm(forms.ModelForm):
         max_length=30,
         required=False,
         widget=forms.TextInput(attrs={'class': 'form-control'}),
-        label="First Name"
+        label="Jméno"
     )
     last_name = forms.CharField(
         max_length=30,
         required=False,
         widget=forms.TextInput(attrs={'class': 'form-control'}),
-        label="Last Name"
+        label="Příjmení"
     )
     email = forms.EmailField(
         required=True,
         widget=forms.EmailInput(attrs={'class': 'form-control'}),
-        label="Email"
+        label="E-mail"
     )
 
     class Meta:

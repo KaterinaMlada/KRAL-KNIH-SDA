@@ -1,19 +1,25 @@
-
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Výsledky hledání pro "{{ query }}"</h2>
+<h2>Výsledky hledání pro: "{{ query }}"</h2>
 
 {% if results %}
-    <ul>
+    <div class="row">
         {% for book in results %}
-            <li>
-                <a href="{% url 'core:book_detail' book.id %}">{{ book.title }}</a>
-            </li>
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card border border-dark h-100">
+                    <a href="{% url 'core:book_detail' pk=book.pk %}">
+                        <img class="card-img-top" src="{{ book.thumbnail.url }}" alt="{{ book.title }}">
+                    </a>
+                    <div class="card-body">
+                        <h6 class="card-title mb-1"><strong>{{ book.title }}</strong></h6>
+                        <span class="price mb-2">{{ book.unit_price }} Kč</span>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 {% else %}
-    <p>Žádné výsledky nenalezeny.</p>
+    <h5>Žádné výsledky nenalezeny.</h5>
 {% endif %}
 {% endblock %}
-    
