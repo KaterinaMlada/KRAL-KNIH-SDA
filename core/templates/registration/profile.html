@@ -37,7 +37,7 @@
     </div>
      <div class="row justify-content-center mt-5">
         <div class="col-md-8">
-            <h2>Your Orders</h2>
+            <h2>Vaše objednávky</h2>
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -56,6 +56,10 @@
                             <td>{{ order.get_payment_status_display }}</td>
                             <td>{{ order.total_cost }}</td>
                             <td>{{ order.customer }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">Žádné objednávky nebyly nalezeny.</td>
                         </tr>
                     {% endfor %}
                 </tbody>
