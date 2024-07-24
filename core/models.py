@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.db.models import Model, CharField, IntegerField, EmailField, ForeignKey, DecimalField, ManyToManyField, DateTimeField, TextField, DateField, PositiveSmallIntegerField, ImageField
+from django.db.models import (Model, CharField, IntegerField, EmailField, ForeignKey, DecimalField, ManyToManyField,
+                              DateTimeField, TextField, DateField, PositiveSmallIntegerField, ImageField)
 from uuid import uuid4
 
 

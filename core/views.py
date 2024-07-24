@@ -55,7 +55,7 @@ def show_about(request):
     return render(
         request,
         template_name='show_about.html',
-        context={'names': ['Štěpán Kubíček','Kateřina Mladá']}
+        context={'names': ['Štěpán Kubíček', 'Kateřina Mladá']}
  )
 
 
@@ -76,9 +76,11 @@ def checkout(request):
                 defaults={
                     'first_name': form.cleaned_data['first_name'],
                     'last_name': form.cleaned_data['last_name'],
-                    'phone': form.cleaned_data['phone'],
-                    }
+                }
             )
+            # Manualní uložení, protože se to špatně updatovalo
+            customer.phone = form.cleaned_data['phone']
+            customer.save()
 
             address = Address.objects.create(
                 street=form.cleaned_data['street'],
@@ -109,8 +111,6 @@ def checkout(request):
 
     else:
         form = CheckoutForm()
-        total_price = 0
-        total_quantity = 0     
 
     total_price = sum(item.quantity * item.book.unit_price for item in items)
     total_quantity = sum(item.quantity for item in items)
@@ -263,4 +263,3 @@ def search(request):
         results = Book.objects.none()
 
     return render(request, 'search_results.html', {'results': results, 'query': query})
-
