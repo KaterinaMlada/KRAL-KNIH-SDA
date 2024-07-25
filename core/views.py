@@ -65,6 +65,24 @@ def checkout(request):
     cart = get_object_or_404(Cart, id=cart_id) # Získá košík podle ID.
     items = cart.cartitem_set.all()  # Získá všechny položky v košíku.
 
+    # najdu posledni objednavku a stanovim si initial data
+    last_order = Order.objects.filter(user=request.user).order_by('-placed_at').first()
+    initial_data = {}
+    if last_order:
+        # udelam si address protoze se k ni dostavam pres customera
+        address = Address.objects.filter(customer=last_order.customer).first()
+        initial_data = {
+            'first_name': last_order.customer.first_name,
+            'last_name': last_order.customer.last_name,
+            'email': last_order.customer.email,
+            'phone': last_order.customer.phone[3:],
+            'street': address.street,
+            'city': address.city,
+            'zip_code': address.zip_code,
+            'country': address.country,
+            'prefix': '+421' if address.country == 'sk' else '+420',
+        }
+
     if request.method == 'POST': 
         form = CheckoutForm(request.POST)  # Pokud je metoda POST, zpracovává se odeslaný formulář.
         if form.is_valid():  # Pokud je formulář platný:
@@ -122,7 +140,7 @@ def checkout(request):
             return redirect('core:order_summary', order_id=order.id)  # Přesměruje na stránku shrnutí objednávky.
 
     else:
-        form = CheckoutForm()  # Pokud je metoda GET, vytvoří prázdný formulář.
+        form = CheckoutForm(initial=initial_data)  # Pokud je metoda GET, vytvoří prázdný formulář.
 
     total_price = sum(item.quantity * item.book.unit_price for item in items) # Vypočítá celkovou cenu.
     total_quantity = sum(item.quantity for item in items) # Vypočítá celkový počet položek.
