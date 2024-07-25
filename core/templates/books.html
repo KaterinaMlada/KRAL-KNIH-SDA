@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block content %} <!-- Začátek bloku 'content', který bude nahrazen obsahem této šablony -->
+{% block content %} 
 
     <div class="page-title">
         <h1>Naše nabídka</h1>
@@ -10,11 +10,12 @@
     <div class="category-bar">
         <h2>Kategorie:</h2>
         <ul class="list-inline">
-            <li class="list-inline-item {% if not selected_category %}active{% endif %}"> <!-- Položka seznamu pro "Všechny" kategorie. Pokud není vybrána žádná kategorie, bude mít třídu 'active', css třída active k označení aktivního prvku -->
+            <li class="list-inline-item {% if not selected_category %}active{% endif %}"> 
                 <a href="{% url 'core:books' %}">Všechny</a>
             </li>
             {% for category in categories %}
-            <li class="list-inline-item {% if selected_category and selected_category.id == category.id %}active{% endif %}">   <!-- Položka seznamu pro každou kategorii. Pokud je kategorie vybraná, bude mít třídu 'active' -->
+            <li class="list-inline-item {% if selected_category and selected_category.id == category.id %}active{% endif %}">   
+                <!-- Položka seznamu pro každou kategorii. Pokud je kategorie vybraná, bude mít třídu 'active' -->
                 <a href="{% url 'core:books_by_category' category.id %}">{{ category.title }}</a>
             </li>
             {% endfor %}
@@ -25,7 +26,7 @@
         {% for book in object_list %}
             <div class="col-lg-4">
                 <div class="product">
-                    <a href="{% url 'core:book_detail' pk=book.pk %}"> <!-- Pk je primární klíč-->
+                    <a href="{% url 'core:book_detail' pk=book.pk %}"> 
                         <img class="thumbnail" src="{{ book.thumbnail.url }}">
                         <h6>
                             {% for author in book.authors.all %}

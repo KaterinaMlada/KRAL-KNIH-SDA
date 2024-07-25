@@ -2,34 +2,34 @@
 {% load static %}
 {% load custom_filters %}
 
-{% block content %} 
-<div class="container mt-5">   <!-- Kontejner s odsazením nahoře (mt-5) -->
-    <div class="row justify-content-center">  <!-- Sloupec s šířkou 6 z 12 na středních a větších obrazovkách -->
-        <div class="col-md-6"> <!-- Sloupec s šířkou 6 z 12 na středních a větších obrazovkách -->
-            <div class="card"> <!-- Karta pro zobrazení obsahu -->
-                <div class="card-header bg-dark text-white">  <!-- Hlavička karty s tmavým pozadím a bílým textem -->
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
                     Přihlášení
                 </div>
                 <div class="card-body">
-                    <form method="post"> <!-- Formulář pro přihlášení, data odesílána metodou POST -->
-                        {% csrf_token %} <!-- Token pro ochranu proti CSRF útokům -->
-                        {% if form.non_field_errors %} <!-- Kontrola, zda formulář obsahuje chyby, které nejsou specifické pro jednotlivá pole -->
-                            <div class="alert alert-danger">  <!-- Div pro zobrazení chyb s červeným pozadím -->
-                                {% for error in form.non_field_errors %} <!-- Iterace přes všechny chyby formuláře -->
-                                    {{ error }}  <!-- Zobrazení chyby -->
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
                                 {% endfor %}
                             </div>
                         {% endif %}
-                        <div class="form-group"> <!-- Skupina formulářových polí -->
-                            <label for="id_username">Uživatelské jméno:</label> <!-- Popis pole pro uživatelské jméno -->
-                            {{ form.username|add_class:'form-control' }} <!-- Vykreslení pole pro uživatelské jméno s přidanou CSS třídou 'form-control' -->
+                        <div class="form-group">
+                            <label for="id_username">Uživatelské jméno:</label>
+                            {{ form.username|add_class:'form-control' }}
                         </div>
                         <div class="form-group">
-                            <label for="id_password">Heslo:</label> <!-- Popis pole pro heslo -->
-                            {{ form.password|add_class:'form-control' }}  <!-- Vykreslení pole pro heslo s přidanou CSS třídou 'form-control, form-control zajišťuje, že vstupní pole pro email a heslo mají jednotný vzhled a jsou snadno použitelné.--> 
+                            <label for="id_password">Heslo:</label>
+                            {{ form.password|add_class:'form-control' }}
                         </div>
-                        <button type="submit" class="btn btn-warning">Přihlásit se</button> <!-- Tlačítko pro odeslání formuláře s CSS třídou 'btn-warning' -->
-                        <a href="{% url 'accounts:register' %}" class="btn btn-warning">Registrace</a> <!-- Odkaz na registrační stránku s CSS třídou 'btn-warning' -->
+                        <button type="submit" class="btn btn-warning">Přihlásit se</button>
+                        <a href="{% url 'accounts:register' %}" class="btn btn-warning">Registrace</a>
                     </form>
                 </div>
             </div>           

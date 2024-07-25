@@ -2,15 +2,15 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-4"> <!-- Kontejner pro hlavní obsah s horním okrajem -->
-    <div class="row"> <!-- Bootstrap grid řádek pro rozložení -->
-        <div class="col-lg-12"> <!-- Plně široký sloupec na velkých obrazovkách -->
-            <div class="box-element">  <!-- Wrapper pro stylování -->
-                <div class="d-flex justify-content-between align-items-center mb-3"> <!-- Flexbox kontejner pro zarovnání obsahu -->
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-12"> 
+            <div class="box-element">  
+                <div class="d-flex justify-content-between align-items-center mb-3"> 
                     <a class="btn btn-outline-warning" href="{% url 'core:books' %}"> &#x2190; Pokračovat v nákupu</a> 
  
-                    {% if cart %}  <!-- Tlačítko pro pokračování v nákupu, odkazující na stránku knih -->
-                    <div class="cart-summary text-center"> <!-- Sekce pro souhrn informací o nákupu -->
+                    {% if items %}  
+                    <div class="cart-summary text-center"> 
                         <h5 class="mb-3" style="font-size: 1.5rem;">Celkové informace o nákupu:</h5>
                         <div class="summary-info">
                             <div><strong>{{ total_quantity }}</strong> položek</div>
@@ -29,17 +29,17 @@
                         <div class="item-info">Cena za kus</div>
                         <div class="item-info">Množství</div>
                         <div class="item-info">Cena celkem</div>
-                        {% if cart %}
+                        {% if items %}
                         <div class="item-info">(Kliknutím na tlačítko odstraníte produkt)</div>
                         {% endif %}
                     </div>
 
-                    {% for item in items %} <!-- Smyčka přes všechny položky v košíku -->
+                    {% for item in items %} 
                     <div class="cart-row py-3 border-bottom">
                         <div class="item-info">
                             <p class="mt-2">{{ item.book.title }}</p>
                         </div>
-                        <div class="item-info">{{ item.book.unit_price|floatformat:2 }} Kč</div> <!-- Zobrazuje cenu knihy, formátovanou na 2 desetinná místa -->
+                        <div class="item-info">{{ item.book.unit_price|floatformat:2 }} Kč</div> 
                         <div class="item-info">
                             <div class="quantity">
                                 <a href="{% url 'core:update_cart_item' book_id=item.book.id action='increase' %}">
@@ -61,7 +61,7 @@
                     {% endfor %}
                 </div>
 
-                {% if not cart %} <!-- Podmínka pro zobrazení zprávy, pokud je košík prázdný -->
+                {% if not items %} 
                 <p class="mt-3">Váš nákupní košík je prázdný.</p>
                 {% endif %}
 

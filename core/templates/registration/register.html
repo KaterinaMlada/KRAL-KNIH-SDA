@@ -3,48 +3,48 @@
 {% load custom_filters %}
 
 {% block content %}
-<div class="container mt-5"> <!-- Kontejner Bootstrap pro středění obsahu s margin-top (mt-5) pro odsazení od vrchu -->
-    <div class="row justify-content-center">   <!-- Řádek s vycentrovaným obsahem -->
-        <div class="col-md-8 col-lg-6">  <!-- Sloupec, který má šířku 8 na středních obrazovkách a 6 na velkých obrazovkách -->
-            <div class="card shadow-sm border-light">   <!-- Karta s jemným stínem a světlým ohraničením -->
-                <div class="card-header bg-dark text-white">  <!-- Hlavička karty s tmavým pozadím a bílým textem -->
+<div class="container mt-5">
+    <div class="row justify-content-center">  
+        <div class="col-md-8 col-lg-6">  
+            <div class="card shadow-sm border-light">   
+                <div class="card-header bg-dark text-white"> 
                     Registrace
                 </div>
                 <div class="card-body">
                     <form method="post" novalidate> <!-- Formulář pro odeslání POST požadavku, novalidate zabraňuje standardní HTML validaci -->
                         {% csrf_token %}    <!-- Token pro ochranu proti CSRF útokům -->
                         
-                        {% if form.non_field_errors %}    <!-- Kontrola, zda jsou nějaké chyby, které nejsou vázány na žádné pole -->
-                            <div class="alert alert-warning mb-3">  <!-- Varovná hláška s margin-bottom (mb-3) pro odsazení od spodní části -->
-                                <i class="bi bi-exclamation-triangle"></i> {{ form.non_field_errors }} <!-- Zobrazuje ikonu varování a text chybových hlášení, které nejsou přiřazeny k žádnému konkrétnímu poli formuláře -->
+                        {% if form.non_field_errors %}   
+                            <div class="alert alert-warning mb-3">  
+                                <i class="bi bi-exclamation-triangle"></i> {{ form.non_field_errors }} 
                             </div>
                         {% endif %}
 
-                        {% for field in form %}   <!-- Smyčka přes všechny pole ve formuláři -->
-                            <div class="mb-3">   <!-- Kontejner pro jednotlivé pole s margin-bottom (mb-3) -->
+                        {% for field in form %}   
+                            <div class="mb-3">   
                                 <label for="{{ field.id_for_label }}" class="form-label">
-                                    {{ field.label }}  <!-- Popis pole -->   
+                                    {{ field.label }}   
                                 </label>
-                                <div class="input-group">  <!-- Skupina vstupních polí pro styly -->
-                                    {{ field|add_class:"form-control" }} <!-- Pole formuláře s CSS třídou form-control pro stylování -->
-                                    {% if field.errors %}    <!-- Kontrola, zda jsou chyby pro dané pole -->
-                                        <div class="invalid-feedback"> <!-- Hláška o neplatnosti -->
-                                            {% for error in field.errors %}  <!-- Smyčka přes chyby jednotlivého pole -->
-                                                <i class="bi bi-exclamation-circle"></i> {{ error }}   <!-- Ikona a text chyby -->
+                                <div class="input-group">  
+                                    {{ field|add_class:"form-control" }} 
+                                    {% if field.errors %}    
+                                        <div class="invalid-feedback"> 
+                                            {% for error in field.errors %}  
+                                                <i class="bi bi-exclamation-circle"></i> {{ error }}   
                                             {% endfor %}
                                         </div>
                                     {% endif %}
                                 </div>
-                                {% if field.help_text %} <!-- Kontrola, zda je k dispozici pomocný text pro pole -->
+                                {% if field.help_text %} 
                                     <div class="form-text">{{ field.help_text }}</div>
-                                    <!-- Pomocný text -->
+                                  
                                 {% endif %}
                             </div>
                         {% endfor %}
 
                         <button class="btn btn-warning w-100 mt-3" type="submit">
-                            <!-- Tlačítko pro odeslání formuláře s šířkou 100% a margin-top (mt-3) pro odsazení od vrchu -->
-                            <i class="bi bi-check-circle"></i> Potvrdit registraci <!-- Ikona a text tlačítka -->
+                           
+                            <i class="bi bi-check-circle"></i> Potvrdit registraci 
                         </button>
                     </form>
                 </div>
