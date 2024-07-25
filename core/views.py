@@ -1,22 +1,22 @@
-from django.shortcuts import render # Importuje funkci `render`, která se používá pro vykreslování šablon.
-from django.views.generic import ListView, DetailView  # Importuje generické pohledy `ListView` a `DetailView`.
-from django.shortcuts import get_object_or_404, redirect # Importuje funkce `get_object_or_404` pro získání objektu nebo vrácení 404 chyby a `redirect` pro přesměrování.
-from django.urls import reverse # Importuje funkci `reverse` pro generování URL podle názvu cesty.
-from core.forms import CheckoutForm, PaymentForm, DeliveryForm # Importuje formuláře
-from core.models import Book, Cart, CartItem, Category, Address, Order, OrderItem, Customer # Importuje modely
-from django.http import JsonResponse # Importuje JS
-from random import shuffle # Importuje funkci `shuffle` pro zamíchání seznamu.
-from django.utils import timezone  # Importuje `timezone` pro práci s časovými zónami.
+from django.shortcuts import render
+from django.views.generic import ListView, DetailView
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
+from core.forms import CheckoutForm, PaymentForm, DeliveryForm
+from core.models import Book, Cart, CartItem, Category, Address, Order, OrderItem, Customer
+from django.http import JsonResponse
+from random import shuffle
 from django.db.models import Q # Importuje `Q` pro složité dotazy v ORM.
+from django.utils import timezone
 
 
 class BooksView(ListView):
     template_name = 'books.html'
     model = Book
 
-    def get_context_data(self, **kwargs): #get_context_data = připravuje a vrací data pro šablonu, self aktuální instance třídy, kwargs umoznuje dodatecne pridat klicove argumenty.
-        context = super().get_context_data(**kwargs) # Získá výchozí kontext z nadřazené třídy ( super() ).
-        context['categories'] = Category.objects.all() # Přidává všechny kategorie do kontextu.
+    def get_context_data(self, **kwargs):  # self aktuální instance třídy, kwargs umoznuje pridat klicove argumenty.
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
         return context
 
 
@@ -26,13 +26,13 @@ class BookDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        current_book = self.get_object() # Získá aktuální objekt. (knihu)
+        current_book = self.get_object()
         
         related_books = list(Book.objects.filter(category=current_book.category).exclude(pk=current_book.pk)[:5])
         shuffle(related_books) # Zamíchá seznam souvisejících knih.
         
         context['related_books'] = related_books
-        return context # Přidává související knihy do kontextu (šablony).
+        return context
 
 
 class BooksByCategoryView(ListView):
@@ -40,8 +40,8 @@ class BooksByCategoryView(ListView):
     model = Book
 
     def get_queryset(self): 
-        return Book.objects.filter(category_id=self.kwargs['category_id'])  # Vrací queryset filtrující knihy podle ID kategorie.
- 
+        return Book.objects.filter(category_id=self.kwargs['category_id'])  # Vrací queryset(seznam objektů)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
@@ -53,17 +53,16 @@ def show_about(request):
     return render(
         request,
         template_name='show_about.html',
-        context={'names': ['Štěpán Kubíček', 'Kateřina Mladá']}
- )
+        context={'names': ['Štěpán Kubíček', 'Kateřina Mladá']})
 
 
 def checkout(request):
-    cart_id = request.session.get('cart_id') # Získá ID košíku ze session.
+    cart_id = request.session.get('cart_id') # Získá ID košíku ze session (uchovává informace o uživateli, obsah košíku)
     if not cart_id: 
-        return redirect('core:cart') # Pokud košík neexistuje, přesměruje na stránku s košíkem.
+        return redirect('core:cart')
 
-    cart = get_object_or_404(Cart, id=cart_id) # Získá košík podle ID.
-    items = cart.cartitem_set.all()  # Získá všechny položky v košíku.
+    cart = get_object_or_404(Cart, id=cart_id)
+    items = cart.cartitem_set.all()
 
     # najdu posledni objednavku a stanovim si initial data
     last_order = Order.objects.filter(user=request.user).order_by('-placed_at').first()
@@ -84,18 +83,18 @@ def checkout(request):
         }
 
     if request.method == 'POST': 
-        form = CheckoutForm(request.POST)  # Pokud je metoda POST, zpracovává se odeslaný formulář.
-        if form.is_valid():  # Pokud je formulář platný:
+        form = CheckoutForm(request.POST)  # Pokud je metoda POST tzn odeslání dat
+        if form.is_valid():
            
             customer, created = Customer.objects.get_or_create(
-                email=form.cleaned_data['email'], # Hledá zákazníka podle e-mailu
-                defaults={ # Používá tyto hodnoty, pokud se zákazník vytvoří
+                email=form.cleaned_data['email'],
+                defaults={
                     'first_name': form.cleaned_data['first_name'],
                     'last_name': form.cleaned_data['last_name'],
                 }
             )
             # Manualní uložení, protože se to špatně updatovalo
-            customer.phone = form.cleaned_data['phone'] # Aktualizuje telefon zákazníka.
+            customer.phone = form.cleaned_data['phone']
             customer.save()
 
             address = Address.objects.create(
@@ -107,25 +106,15 @@ def checkout(request):
             )
 
             order = Order.objects.create( 
-                customer=customer,   # Přiřazení zákazníka k objednávce
-                payment_status=Order.PAYMENT_STATUS_PENDING, # Nastavení stavu platby na "čekající"
+                customer=customer,
+                payment_status=Order.PAYMENT_STATUS_PENDING,
                 
                 
                 total_cost=sum(item.quantity * item.book.unit_price for item in items),
-                
-                    # Vypočítání celkových nákladů objednávky na základě položek
-                    # 'items' obsahuje seznam položek objednávky
-                    # 'item.quantity' je množství knihy v položce
-                    # 'item.book.unit_price' je jednotková cena knihy
-                    # Celková cena se získá sečtením (sum) všech těchto nákladů
-                
-                user=request.user if request.user.is_authenticated else None,
+                # Vypočítání celkových nákladů objednávky na základě položek
 
-                    # Přiřazení uživatele k objednávce, pokud je přihlášen
-                    # Pokud uživatel není přihlášen, uloží se jako None
-                
-                
-            )
+                user=request.user if request.user.is_authenticated else None,
+                )
 
             for item in items:
                 OrderItem.objects.create(
@@ -137,13 +126,13 @@ def checkout(request):
 
             cart.cartitem_set.all().delete() # Odstraní všechny položky z košíku.
             del request.session['cart_id']  # Odstraní ID košíku ze session.
-            return redirect('core:order_summary', order_id=order.id)  # Přesměruje na stránku shrnutí objednávky.
+            return redirect('core:order_summary', order_id=order.id)
 
     else:
-        form = CheckoutForm(initial=initial_data)  # Pokud je metoda GET, vytvoří prázdný formulář.
+        form = CheckoutForm(initial=initial_data)  # Pokud je metoda GET, vyplní data z poslední objednávky
 
-    total_price = sum(item.quantity * item.book.unit_price for item in items) # Vypočítá celkovou cenu.
-    total_quantity = sum(item.quantity for item in items) # Vypočítá celkový počet položek.
+    total_price = sum(item.quantity * item.book.unit_price for item in items)
+    total_quantity = sum(item.quantity for item in items)
 
     context = {
         'cart': cart,
@@ -152,7 +141,7 @@ def checkout(request):
         'total_quantity': total_quantity, 
         'form': form
     }
-    return render(request, 'checkout.html', context)  # Vrátí šablonu s kontextem.
+    return render(request, 'checkout.html', context)
 
 
 def order_success(request):
@@ -160,20 +149,19 @@ def order_success(request):
 
 
 # CART
-
 def add_to_cart(request, book_id):
-    book = get_object_or_404(Book, pk=book_id) # Získá knihu podle ID
-    cart_id = request.session.get('cart_id') # Získá ID košíku ze session.
+    book = get_object_or_404(Book, pk=book_id)
+    cart_id = request.session.get('cart_id')
     if cart_id: 
-        cart = get_object_or_404(Cart, id=cart_id) # Získá košík ID"
-    else: # Pokud není k dispozici 
-        cart = Cart.objects.create() # Vytvoří nový košík.
-        request.session['cart_id'] = str(cart.id) # Uloží ID košíku do session.
+        cart = get_object_or_404(Cart, id=cart_id)
+    else:
+        cart = Cart.objects.create()
+        request.session['cart_id'] = str(cart.id)
 
     cart_item, item_created = CartItem.objects.get_or_create(cart=cart, book=book)
 
     if not item_created:
-        cart_item.quantity += 1 # Pokud položka již existuje, zvýší množství.
+        cart_item.quantity += 1
         cart_item.save()
 
     return redirect('core:books')
@@ -182,9 +170,9 @@ def add_to_cart(request, book_id):
 def add_to_cart_detail(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
     cart_id = request.session.get('cart_id')
-    if cart_id: # Pokud je k dispozici 
+    if cart_id:
         cart = get_object_or_404(Cart, id=cart_id)
-    else: # Pokud není k dispozici 
+    else:
         cart = Cart.objects.create()
         request.session['cart_id'] = str(cart.id)
 
@@ -196,27 +184,28 @@ def add_to_cart_detail(request, book_id):
 
     return redirect('core:book_detail', pk=book.pk)
 
-#STEJNE JAKO ADD TO CART, AKORAT TO FUNGUJE PRO DETAIL KNIHY
+# STEJNE JAKO ADD TO CART, AKORAT TO FUNGUJE PRO DETAIL KNIHY
+
 
 def cart(request):
     cart_id = request.session.get('cart_id')
     if cart_id:
         cart = get_object_or_404(Cart, id=cart_id)
         items = cart.cartitem_set.all()  
-        total_price = sum(item.quantity * item.book.unit_price for item in items)  # Vypočítá celkovou cenu.
-        total_quantity = sum(item.quantity for item in items) # Vypočítá celkový počet položek.
-    else: # Pokud není k dispozici 
-        cart = None # že košík neexistuje
-        items = [] # a je prázdný seznam pro položky v košíku
-        total_price = 0 # nastaví se total price na 0
-        total_quantity = 0  # stejně jako item q
+        total_price = sum(item.quantity * item.book.unit_price for item in items)
+        total_quantity = sum(item.quantity for item in items)
+    else:
+        cart = None
+        items = []
+        total_price = 0
+        total_quantity = 0
 
     context = {
         'cart': cart,
         'items': items,
         'total_price': total_price,
         'total_quantity': total_quantity, 
-    } # předávají se všechny hodnoty do šablony
+    }
     return render(request, 'cart.html', context)
 
 
@@ -224,8 +213,8 @@ def update_cart_item(request, book_id, action):
     cart_id = request.session.get('cart_id') 
     if not cart_id:
         return redirect(reverse('core:books'))
-    cart = get_object_or_404(Cart, id=cart_id) # Získá košík podle ID
-    cart_item = get_object_or_404(CartItem, cart=cart, book_id=book_id)  # Získá položku v košíku podle ID knihy.
+    cart = get_object_or_404(Cart, id=cart_id)
+    cart_item = get_object_or_404(CartItem, cart=cart, book_id=book_id)
     if action == 'increase':
         cart_item.quantity += 1 # Pokud je akce 'increase', zvýší množství.
     elif action == 'decrease' and cart_item.quantity > 1:
@@ -238,14 +227,14 @@ def remove_from_cart(request, book_id):
     cart_id = request.session.get('cart_id')
     if not cart_id:
         return redirect(reverse('core:books'))
-    cart = get_object_or_404(Cart, id=cart_id) # Získá košík podle ID.
-    cart_item = get_object_or_404(CartItem, cart=cart, book_id=book_id)  # Získá položku v košíku podle ID knihy.
-    cart_item.delete() # Odstraní položku z košíku.
+    cart = get_object_or_404(Cart, id=cart_id)
+    cart_item = get_object_or_404(CartItem, cart=cart, book_id=book_id)
+    cart_item.delete()
     return redirect(reverse('core:cart'))
 
 
 def cart_count(request):
-    cart_id = request.session.get('cart_id')  # Získá ID
+    cart_id = request.session.get('cart_id')
     if cart_id:
         cart = get_object_or_404(Cart, id=cart_id)
         total_quantity = sum(item.quantity for item in cart.cartitem_set.all())
@@ -257,18 +246,18 @@ def cart_count(request):
 
 def order_summary(request, order_id):
     order = get_object_or_404(Order, id=order_id)
-    customer = order.customer # Získá zákazníka k objednávce.
-    items = order.orderitem_set.all() # Získá všechny položky v objednávce.
+    customer = order.customer
+    items = order.orderitem_set.all()
     address = Address.objects.filter(customer=customer).last()  # Získá poslední adresu zákazníka.
 
-    if request.method == 'POST': # Pokud je metoda POST, zpracovává se odeslané formuláře.
-        payment_form = PaymentForm(request.POST) # formuláře
+    if request.method == 'POST':
+        payment_form = PaymentForm(request.POST)
         delivery_form = DeliveryForm(request.POST)
 
-        if payment_form.is_valid() and delivery_form.is_valid(): # Pokud jsou oba formuláře platné
+        if payment_form.is_valid() and delivery_form.is_valid():
             return redirect('core:order_success')
     else:
-        payment_form = PaymentForm() # Vytvoří prázdné formuláře.
+        payment_form = PaymentForm()
         delivery_form = DeliveryForm()
 
     context = {
@@ -283,17 +272,17 @@ def order_summary(request, order_id):
 
 
 def search(request):
-    query = request.GET.get('q', '')  # Získá dotaz ze GET parametrů.
+    query = request.GET.get('q', '')  # Získá dotaz z GET parametrů.
     if query:
-        results = Book.objects.filter(
-            Q(title__icontains=query) |  # Filtruje knihy podle názvu.
-            Q(category__title__icontains=query) |  # Filtruje knihy podle kategorie.
-            Q(authors__first_name__icontains=query) |  # Filtruje knihy podle jména autora.
-            Q(authors__last_name__icontains=query)  # Filtruje knihy podle příjmení autora.
+        results = Book.objects.filter(  # icontains hleda bez citlivosti na velikost pismen
+            Q(title__icontains=query) |
+            Q(category__title__icontains=query) |
+            Q(authors__first_name__icontains=query) |
+            Q(authors__last_name__icontains=query)
         ).distinct()
     else:
         results = Book.objects.none()
 
     return render(request, 'search_results.html', {'results': results, 'query': query})
 
-# Q umoznuje kombinovat různé podmínky dotazů do jednoho q-setu
+    # Q umoznuje kombinovat různé podmínky dotazů do jednoho q-setu

@@ -11,7 +11,7 @@ class Author(models.Model):
     last_name = CharField(max_length=25)
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}' #vrací celé jméno
+        return f'{self.first_name} {self.last_name}' # vrací celé jméno
 
     class Meta:
         ordering = ['last_name', 'first_name']  # Řadí autory podle příjmení a pak křestního jména
@@ -38,6 +38,7 @@ class Address(models.Model):
     zip_code = CharField(max_length=10)
     country = CharField(max_length=15)
     customer = ForeignKey(Customer, on_delete=models.CASCADE, default=None) # foreign- mnoho k jednomu, on_delete se odstrani všechny orders
+
     class Meta:
         verbose_name_plural = "addresses" #nastavuje množné jméno modelu
         ordering = ['city', 'zip_code', 'country'] # Řadí adresy podle města, PSČ a země
@@ -120,7 +121,7 @@ class Cart(models.Model):
         return str(self.id)
 
     def add_item(self, book, quantity=1):
-  # Přidá položku do košíku nebo aktualizuje množství, pokud již existuje
+     # Přidá položku do košíku nebo aktualizuje množství, pokud již existuje
         item, created = CartItem.objects.get_or_create(cart=self, book=book)
         if not created:
             item.quantity += quantity
@@ -137,6 +138,6 @@ class CartItem(models.Model):
     def __str__(self):
         return f"{self.quantity} of {self.book.title}"
     
-    @property  #Zajišťuje aby cena celkem vypisovala společnou částku pro více kusů stejné knihy. 
+    @property  # Zajišťuje aby cena celkem vypisovala společnou částku pro více kusů stejné knihy.
     def total_cost(self):
         return self.book.unit_price * self.quantity

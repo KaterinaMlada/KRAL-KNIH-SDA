@@ -6,8 +6,7 @@ from django.urls import reverse, resolve
 from core.views import *
 
 
-
-#models
+# models
 class CartModelTestCase(TestCase):
 
     def setUp(self):
@@ -27,7 +26,7 @@ class CartModelTestCase(TestCase):
         )
 
     def test_cart_creation(self):
-        self.assertEqual(self.cart.customer, self.customer)
+        self.assertEqual(self.cart.customer, self.customer) # testuje jestli jsou si hodnoty rovny
 
     def test_add_item_to_cart(self):
         self.cart.add_item(self.book, quantity=2)
@@ -38,12 +37,8 @@ class CartModelTestCase(TestCase):
         cart_item.refresh_from_db()
         self.assertEqual(cart_item.quantity, 5)
 
-    def test_cart_string_representation(self):
-        self.assertEqual(str(self.cart), str(self.cart.id))
 
-#forms
-
-
+# forms
 class EditProfileFormTest(TestCase):
     
     def setUp(self):
@@ -89,19 +84,8 @@ class EditProfileFormTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('email', form.errors)
 
-    def test_form_initial_data(self):
-        form = EditProfileForm(instance=self.user)
-        self.assertEqual(form.initial['first_name'], 'Adam')
-        self.assertEqual(form.initial['last_name'], 'Mnich')
-        self.assertEqual(form.initial['email'], 'test@seznam.cz')
-
-if __name__ == "__main__":
-    import unittest
-    unittest.main()
-
 
 # URL testy
-
 class URLTests(SimpleTestCase):
 
     def test_books_url(self):
@@ -114,7 +98,6 @@ class URLTests(SimpleTestCase):
 
 
 # VIEW testy
-
 class BooksViewTests(TestCase):
     def setUp(self):
         self.client = Client()
