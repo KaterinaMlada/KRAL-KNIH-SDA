@@ -2,30 +2,30 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-sm">
-                <div class="card-header bg-dark text-white">
+<div class="container mt-5"> <!-- Kontejner pro vycentrování obsahu s odstupem od vrchu -->
+    <div class="row justify-content-center">  <!-- Řádek s vycentrovaným obsahem -->
+        <div class="col-md-6">   <!-- Sloupec s šířkou 6 (z 12) pro střední obrazovky a větší -->
+            <div class="card shadow-sm">   <!-- Karta s jemným stínem -->
+                <div class="card-header bg-dark text-white"> <!-- Hlavička karty s tmavým pozadím a bílým textem -->
                    Profil uživatele
                 </div>
                 <div class="card-body">
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
+                    <form method="post">   <!-- Formulář pro odeslání POST požadavku -->
+                        {% csrf_token %}  <!-- Token pro zabezpečení proti CSRF útokům -->
+                        {{ form.as_p }} <!-- Formulář vykreslený jako odstavce (p) -->
                         <button class="btn btn-warning w-100 mt-3" type="submit">Uložit změny</button>
-                    </form>
+                    </form>   <!-- Tlačítko pro odeslání formuláře, s šířkou 100% a horním odsazením -->
 
-                    {% if form.errors %}
-                        <div class="alert alert-warning mt-3">
+                    {% if form.errors %} <!-- Kontrola, zda jsou nějaké chyby ve formuláři -->
+                        <div class="alert alert-warning mt-3"> <!-- Varovná hláška -->
                             <p>Možné chyby:</p>
-                            <ul>
-                                {% for field in form %}
-                                    {% for error in field.errors %}
+                            <ul>    <!-- Seznam chyb -->
+                                {% for field in form %}    <!-- Smyčka přes pole formuláře -->
+                                    {% for error in field.errors %}  <!-- Smyčka přes chyby jednotlivého pole -->
                                         <li>{{ error }}</li>
                                     {% endfor %}
                                 {% endfor %}
-                                {% for error in form.non_field_errors %}
+                                {% for error in form.non_field_errors %}  <!-- Smyčka přes chyby, které nejsou vázány na žádné pole -->
                                     <li>{{ error }}</li>
                                 {% endfor %}
                             </ul>
@@ -35,10 +35,11 @@
             </div>
         </div>
     </div>
-     <div class="row justify-content-center mt-5">
-        <div class="col-md-8">
+
+     <div class="row justify-content-center mt-5">  <!-- Řádek s odstupem od vrchu -->
+        <div class="col-md-8">   <!-- Sloupec s šířkou 8 (z 12) pro střední obrazovky a větší -->
             <h2>Vaše objednávky</h2>
-            <table class="table table-bordered">
+            <table class="table table-bordered">  <!-- Tabulka s ohraničením -->
                 <thead>
                     <tr>
                         <th>ID objednávky</th>
@@ -49,17 +50,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for order in orders %}
+                    {% for order in orders %} <!-- Smyčka přes objednávky -->
                         <tr>
-                            <td>{{ order.id }}</td>
-                            <td>{{ order.placed_at }}</td>
-                            <td>{{ order.get_payment_status_display }}</td>
-                            <td>{{ order.total_cost }}</td>
-                            <td>{{ order.customer }}</td>
+                            <td>{{ order.id }}</td>  <!-- ID objednávky -->
+                            <td>{{ order.placed_at }}</td> <!-- Datum objednávky -->
+                            <td>{{ order.get_payment_status_display }}</td>  <!-- Status objednávky -->
+                            <td>{{ order.total_cost }}</td> <!-- Celková cena objednávky -->
+                            <td>{{ order.customer }}</td>   <!-- Zákazník -->
                         </tr>
-                    {% empty %}
+                    {% empty %}  <!-- Pokud nejsou žádné objednávky -->
                         <tr>
-                            <td colspan="5" class="text-center">Žádné objednávky nebyly nalezeny.</td>
+                            <td colspan="5" class="text-center">Žádné objednávky nebyly nalezeny.</td>   <!-- zabírá všechny sloupce s textem uprostřed -->
                         </tr>
                     {% endfor %}
                 </tbody>

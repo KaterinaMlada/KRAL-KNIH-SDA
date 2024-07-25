@@ -6,8 +6,8 @@ from core.models import *
 
 @admin.register(Author)
 class AuthorAdmin(ModelAdmin):
-    search_fields = ['first_name', 'last_name']
-    list_display = ['last_name', 'first_name']
+    search_fields = ['first_name', 'last_name']  # Pole, podle kterých bude možné vyhledávat autory
+    list_display = ['last_name', 'first_name'] # Sloupce, které budou zobrazeny v přehledu autorů
 
 
 @admin.register(Category)
@@ -24,9 +24,9 @@ class CategoryAdmin(ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(ModelAdmin):
-    autocomplete_fields = ['authors']
+    autocomplete_fields = ['authors']  # Pole pro automatické doplňování autorů při editaci knihy
     prepopulated_fields = {
-        'slug': ['title']
+        'slug': ['title']   # Automatické vyplnění pole 'slug' na základě 'title'
     }
     list_display = ['title', 'unit_price', 'category']
     list_editable = ['unit_price']
@@ -37,7 +37,7 @@ class BookAdmin(ModelAdmin):
     @admin.display(ordering='inventory')
     def inventory_status(self, book):
         if book.inventory < 5:
-            return 'Low'
+            return 'Low'  # Vrátí 'Low', pokud je zásoba menší než 5, jinak 'OK'
         return 'OK'
 
 
@@ -50,15 +50,15 @@ class CustomerAdmin(ModelAdmin):
 
 class OrderItemInline(admin.TabularInline):
     autocomplete_fields = ['book']
-    extra = 0
-    min_num = 1
+    extra = 0    # Počet prázdných řádků, které budou zobrazeny ve výchozím stavu
+    min_num = 1 # Minimální počet položek v objednávce
     model = OrderItem
 
 
 @admin.register(Order)
 class OrderAdmin(ModelAdmin):
     autocomplete_fields = ['customer']
-    inlines = [OrderItemInline]
+    inlines = [OrderItemInline]    # OrderItemInline: Umožňuje zobrazení a správu položek objednávky přímo v administračním rozhraní objednávky.
     list_display = ['id', 'customer', 'placed_at', 'payment_status',]
     list_editable = ['payment_status']
     list_filter = ['payment_status']

@@ -6,7 +6,8 @@ from .views import cart_count
 
 app_name = 'core'
 
-urlpatterns = [
+urlpatterns = [ # Definuje seznam URL cest pro tuto aplikaci.
+    
     path('', views.BooksView.as_view(), name="books"),
     path('books/<pk>/', views.BookDetailView.as_view(), name="book_detail"),
     
@@ -27,4 +28,4 @@ urlpatterns = [
     path('search/', views.search, name='search'),
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # Přidává nastavení pro obsluhu statických souborů (např. obrázků) v režimu vývoje.

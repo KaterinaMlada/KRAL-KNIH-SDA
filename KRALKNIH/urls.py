@@ -19,7 +19,6 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from core.views import *
-from KRALKNIH import settings 
 from accounts.views import *
 
 admin.site.site_header = 'Král Knih - Administrační panel'
@@ -30,3 +29,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls', 'accounts')),
  
  ]
+
+#include říká, že všechny url budou použité v základním urls.py

@@ -82,13 +82,15 @@ class CheckoutForm(forms.Form):
         widget=forms.Select(attrs={'class': 'form-control'} ))
 
     def clean(self):
-        cleaned_data = super().clean()
-        prefix = cleaned_data.get('prefix')
-        phone = cleaned_data.get('phone')
+        cleaned_data = super().clean()  # Volá metodu clean nadřazené třídy pro základní čištění dat
+        prefix = cleaned_data.get('prefix')  # Získá hodnotu prefixu z očištěných dat (prefix - předpona)
+        phone = cleaned_data.get('phone')  # Získá hodnotu telefonního čísla z očištěných dat
 
+    # Pokud jsou obě hodnoty (prefix a telefonní číslo) k dispozici
         if prefix and phone:
-            cleaned_data['phone'] = f"{prefix}{phone}"
+            cleaned_data['phone'] = f"{prefix}{phone}" # Sloučí prefix a telefonní číslo do jednoho řetězce
 
+     # Vrátí očištěná data s případně sloučeným telefonním číslem
         return cleaned_data
 
 
@@ -122,18 +124,18 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
-    def clean_email(self):
+    def clean_email(self):   # Získá e-mail z očistitěných dat formuláře
         email = self.cleaned_data.get('email')
-        if User.objects.filter(email=email).exists():
-            raise forms.ValidationError("Tento e-mail už někdo používá.")
-        return email
+        if User.objects.filter(email=email).exists():   # Zkontroluje, zda e-mail již existuje v databázi
+            raise forms.ValidationError("Tento e-mail už někdo používá.")  # Pokud e-mail existuje, vyvolá chybu validace
+        return email  # Vrátí e-mail, pokud je platný
 
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         password_confirm = cleaned_data.get("password_confirm")
 
-        if password != password_confirm:
+        if password != password_confirm:   # Zkontroluje, zda se hesla shodují
             raise forms.ValidationError("Hesla se neshodují.")
 
         return cleaned_data

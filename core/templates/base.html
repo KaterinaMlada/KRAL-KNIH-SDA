@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 {% load static %}
 
 <html {% if LANGUAGE_CODE %}lang="{{ LANGUAGE_CODE }}"{% endif %}>
@@ -26,12 +28,14 @@
             <span class="divider" name="divi2"></span>
         </a>
 
-        <div class="form-inline">
-            <form method="GET" action="{% url 'core:search' %}" class="input-group input-group-sm">
+        <div class="form-inline">   <!-- Kontejner pro formátování formuláře na jeden řádek -->
+            <form method="GET" action="{% url 'core:search' %}" class="input-group input-group-sm"> 
+                  <!-- Formulář, který odešle GET požadavek na URL definovanou v 'core:search' -->
                 <input type="search" class="form-control rounded" placeholder="Hledat.." aria-label="Search" aria-describedby="search-addon" name="q" />
+                <!-- Vstupní pole pro vyhledávání s třídou 'form-control' a 'rounded', které zaobluje rohy -->
                 <div class="input-group-append">
-                    <button class="btn btn-outline-warning rounded-right" type="submit">
-                        <i class="fa fa-search" aria-hidden="true"></i>
+                    <button class="btn btn-outline-warning rounded-right" type="submit">    <!-- Tlačítko pro odeslání formuláře s třídou 'btn' a 'btn-outline-warning' pro barvu a styl -->
+                        <i class="fa fa-search" aria-hidden="true"></i>     <!-- Ikona lupy pro vyhledávání -->
                     </button>
                 </div>
             </form>
@@ -40,23 +44,24 @@
         
 
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">  <!-- Tlačítko pro přepínání navigačního menu (collapse/expand) na mobilních zařízeních -->
+            <span class="navbar-toggler-icon"></span>   <!-- Ikona pro tlačítko přepínače -->
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link-custom" href="{% url 'core:about' %}">&#128081 O našem týmu &#128081</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">  <!-- Kontejner pro skryté menu, které se zobrazuje po kliknutí na přepínač -->
+            <ul class="navbar-nav mx-auto"> <!-- Seznam navigačních položek, který je centrován -->
+                <li class="nav-item">   <!-- Jednotlivá navigační položka -->
+                    <a class="nav-link-custom" href="{% url 'core:about' %}">&#128081 O našem týmu &#128081</a>   <!-- Odkaz na stránku "O našem týmu" s emoji -->
                 </li>
             </ul>
 
                     
                 {% if user.is_authenticated %}
                 <span class="navbar-text">
-                    Jeho veličenstvo.. 
-                    {% if user.first_name and user.last_name %}
+                    Jeho veličenstvo..  <!-- Zobrazuje text "Jeho veličenstvo.." pro přihlášeného uživatele -->
+                    {% if user.first_name and user.last_name %}   <!-- Kontroluje, zda má uživatel vyplněná jména (křestní a příjmení) -->
                         <a href="{% url 'accounts:profile' %}" class="username" style="color: #d4af37; text-decoration: underline;">{{ user.first_name }} {{ user.last_name }}<a/>
+                    <!-- Odkaz na profil uživatele s použitím vlastního stylu -->
                     {% else %}        
                     <a href="{% url 'accounts:profile' %}" class="username" style="color: #d4af37; text-decoration: underline;">{{ user.username }}</a>
                     {% endif %}        
@@ -68,8 +73,8 @@
                 <a href="{% url 'core:cart' %}">
                     <img id="cart-icon" src="{% static 'images/cart.png' %}" alt="Cart" >
                 </a>
-                <p id="cart_count">0</p>
-            </div>
+                <p id="cart_count">0</p> <!-- Element pro zobrazení počtu položek v nákupním košíku (výchozí hodnota je 0) -->
+            </div> 
         </div>
 
 
