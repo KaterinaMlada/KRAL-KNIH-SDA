@@ -6,8 +6,8 @@ from core.models import *
 
 @admin.register(Author)
 class AuthorAdmin(ModelAdmin):
-    search_fields = ['first_name', 'last_name']  # Pole, podle kterých bude možné vyhledávat autory
-    list_display = ['last_name', 'first_name'] # Sloupce, které budou zobrazeny v přehledu autorů
+    search_fields = ['first_name', 'last_name']
+    list_display = ['last_name', 'first_name']
 
 
 @admin.register(Category)
@@ -24,11 +24,11 @@ class CategoryAdmin(ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(ModelAdmin):
-    autocomplete_fields = ['authors']  # Pole pro automatické doplňování autorů při editaci knihy
+    autocomplete_fields = ['authors']
     prepopulated_fields = {
         'slug': ['title']   # Automatické vyplnění pole 'slug' na základě 'title'
     }
-    list_display = ['title', 'unit_price', 'category']
+    list_display = ['title', 'unit_price', 'category', 'inventory_status']
     list_editable = ['unit_price']
     list_filter = ['category']
     list_per_page = 15
@@ -58,7 +58,8 @@ class OrderItemInline(admin.TabularInline):
 @admin.register(Order)
 class OrderAdmin(ModelAdmin):
     autocomplete_fields = ['customer']
-    inlines = [OrderItemInline]    # OrderItemInline: Umožňuje zobrazení a správu položek objednávky přímo v administračním rozhraní objednávky.
+    inlines = [OrderItemInline]
+    # OrderItemInline: Umožňuje zobrazení a správu položek objednávky přímo v administračním rozhraní objednávky.
     list_display = ['id', 'customer', 'placed_at', 'payment_status',]
     list_editable = ['payment_status']
     list_filter = ['payment_status']

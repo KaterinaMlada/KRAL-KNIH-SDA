@@ -1,10 +1,10 @@
-var cart_count = document.getElementById("cart_count") // Získá HTML element s ID 'cart_count' a uloží ho do proměnné
+var cart_count = document.getElementById("cart_count")
 
-fetch('/cart/count') // Provádí HTTP GET požadavek na server na URL '/cart/count'
-                .then(response => response.json())  // Zpracovává odpověď serveru jako JSON
-                .then(data => { // Po úspěšném zpracování JSON odpovědi nastaví text elementu 'cart_count' na hodnotu 'count' z JSON odpovědi
+fetch('/cart/count')
+                .then(response => response.json())
+                .then(data => {
                     cart_count.innerText = data.count
-                }) // Pokud dojde k chybě během požadavku nebo zpracování, vypíše chybu do konzole
+                })
                 .catch(error => console.error('Error:', error));
 
 

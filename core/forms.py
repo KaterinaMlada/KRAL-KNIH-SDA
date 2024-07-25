@@ -82,15 +82,13 @@ class CheckoutForm(forms.Form):
         widget=forms.Select(attrs={'class': 'form-control'} ))
 
     def clean(self):
-        cleaned_data = super().clean()  # Volá metodu clean nadřazené třídy pro základní čištění dat
-        prefix = cleaned_data.get('prefix')  # Získá hodnotu prefixu z očištěných dat (prefix - předpona)
-        phone = cleaned_data.get('phone')  # Získá hodnotu telefonního čísla z očištěných dat
+        cleaned_data = super().clean()
+        prefix = cleaned_data.get('prefix')
+        phone = cleaned_data.get('phone')
 
-    # Pokud jsou obě hodnoty (prefix a telefonní číslo) k dispozici
         if prefix and phone:
             cleaned_data['phone'] = f"{prefix}{phone}" # Sloučí prefix a telefonní číslo do jednoho řetězce
 
-     # Vrátí očištěná data s případně sloučeným telefonním číslem
         return cleaned_data
 
 
@@ -115,7 +113,7 @@ class DeliveryForm(forms.Form):
 class UserRegisterForm(UserCreationForm):
 
     email = forms.EmailField(
-        required= True,
+        required=True,
         widget=forms.EmailInput(attrs={'class': 'form-control'}),
         label="E-mail"
     )
@@ -124,18 +122,18 @@ class UserRegisterForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
-    def clean_email(self):   # Získá e-mail z očistitěných dat formuláře
+    def clean_email(self):
         email = self.cleaned_data.get('email')
-        if User.objects.filter(email=email).exists():   # Zkontroluje, zda e-mail již existuje v databázi
-            raise forms.ValidationError("Tento e-mail už někdo používá.")  # Pokud e-mail existuje, vyvolá chybu validace
-        return email  # Vrátí e-mail, pokud je platný
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Tento e-mail už někdo používá.")  # Pokud e-mail existuje, chyba validace
+        return email
 
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         password_confirm = cleaned_data.get("password_confirm")
 
-        if password != password_confirm:   # Zkontroluje, zda se hesla shodují
+        if password != password_confirm:
             raise forms.ValidationError("Hesla se neshodují.")
 
         return cleaned_data
