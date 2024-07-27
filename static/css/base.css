@@ -521,35 +521,3 @@ h1,h2,h3,h4,h5,h6{
         }
 
 
-/* VYSVETLIVKY */
-
-/* display: block; Element zabírá celou šířku dostupného prostoru a začíná na novém řádku. */
-
-/* border-radius: Zaobluje rohy elementu */
-
-/* font-weight: bold; Nastavuje tloušťku písma na tučný (bold). */
-
-/* margin-top:  Určuje velikost vnějšího odsazení nahoře elementu,*/
-
-/* padding: 6px 12px; Určuje vnitřní odsazení */
-
-/*display: inline-block; Element je vykreslován jako inline (na stejné řádce jako ostatní inline elementy), ale může mít nastavené šířky a výšky jako blokový element. */
-
-/* flex: 0 0 auto; Flexibilní vlastnost pro položky v kontejnerech s display: flex;: element nebude růst ani se zmenšovat a jeho velikost bude automatická. */
-
-/* transition: background-color 0.2s ease; Definuje plynulý přechod pro změnu barvy pozadí s trváním 0.2 sekundy a funkcí ease pro hladký efekt. */
-
-/*list-style-type: none, Odstraňuje standardní odrážky nebo čísla z položek seznamu. */
-
-/* flex-wrap: nowrap; Určuje, že položky v flex kontejnerech se nepřevinují na další řádky, ale zůstanou v jednom řádku. */
-
-/* gap Nastavuje mezeru mezi položkami v flex nebo grid kontejnerech, v tomto případě 10 pixelů. */
-
-/* overflow-x: auto; Umožňuje horizontální posouvání obsahu, pokud přesahuje šířku kontejneru. */
-
-/* white-space: nowrap; Zabraňuje zalamování textu, takže vše zůstane v jednom řádku. */
-
-/* justify-content: center; Ustředňuje položky podél hlavní osy v flex kontejnerech (obvykle horizontálně). */
-
-/* object-fit: contain; Udržuje poměr stran obrázku při jeho zmenšení nebo zvětšení, aby se vešel do kontejneru, ale nezakrývá žádnou část obrázku. */
-
